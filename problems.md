@@ -2,20 +2,21 @@
 # DSA Problems
 
 - [Arrays](#arrays)
-  - [Two sum](#b1-two-sumb)
-  - [Container with most water](#b2-container-with-most-waterb)
-  - [Trapping rain water](#b3-trapping-rain-waterb)
+  - [Two sum](#1-two-sum)
+  - [Container with most water](#2-container-with-most-water)
+  - [Trapping rain water](#3-trapping-rain-water)
 - [Strings](#strings)
-  - [Typed out strings](#b1-typed-out-stringsb)
-  - [Longest substring without repeating characters](#b2-longest-substring-without-repeating-characters-mediumb)
-  - [Palindromes](#b3-palindromesb)
+  - [Typed out strings](#1-typed-out-strings)
+  - [Longest substring without repeating characters](#longest-substring-without-repeating-characters-medium)
+  - [Palindromes](#palindromes)
 - [Linked Lists](#linked-lists)
 <!-- /code_chunk_output -->
 
  ***
 
 > ## Arrays  
-### <b>1. Two Sum</b>
+
+### 1. Two Sum
 
 [Q: Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.](https://leetcode.com/problems/two-sum/)
 
@@ -72,7 +73,7 @@ const findTwoSum = function(nums, target) {
 console.log(findTwoSum(numsArray, targetToFind));
 ```
 
-### <b>2. Container with most water</b>
+### 2. Container with most water
 
 [Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.](https://leetcode.com/problems/container-with-most-water/)
 
@@ -128,7 +129,7 @@ const getMaxWaterContainer = function(heights) {
 console.log(getMaxWaterContainer(heightsArray));
 ```
 
-### <b>3. Trapping Rain water</b>
+### 3. Trapping Rain water
 
 [Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.](https://leetcode.com/problems/trapping-rain-water/)
 
@@ -198,7 +199,8 @@ const getTrappedRainwater = function(heights) {
 ***
 
 > ## Strings
-### <b>1. Typed out strings</b>
+
+### 1. Typed out strings
 
 [Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
 Note that after backspacing an empty text, the text will continue empty.
@@ -272,7 +274,7 @@ var backspaceCompare = function(S, T) {
 console.log(backspaceCompare(string1, string2));
 ```
 
-### <b>2. Longest Substring Without Repeating Characters (Medium)</b>
+### 2. Longest Substring Without Repeating Characters (Medium)
 
 [Given a string s, find the length of the longest substring without repeating characters.](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
@@ -329,7 +331,7 @@ console.log(lengthOfLongestSubstring(string));
 
 ```
 
-### <b>3. Palindromes</b>
+### 3. Palindromes
 
 Approaches: Following are some of approaches to find if a string is palindrome or not.
 
@@ -381,7 +383,9 @@ validPalindrome(abca);
 ***
 
 > ## Linked Lists
-### <b>1. Reverse a Linked List</b>
+
+### 1. Reverse a Linked List
+
 [Given the head of a singly linked list, reverse the list, and return the reversed list.](https://leetcode.com/problems/reverse-linked-list/)
 
 Solution: [Repl](https://replit.com/@ZhangMYihua/reverse-linked-list#main.js)
@@ -423,6 +427,6 @@ console.log(reverseLL(head));
 
 ```
 
-### <b>2. M, N Reversals</b>
+### 2. M, N Reversals
 
 ***
