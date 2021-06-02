@@ -14,12 +14,7 @@
 
  ***
 
-> ## Arrays
-
-- [ ] 1. Two sum (Easy)
-- [ ] 2. Container with most water (Medium)
-- [ ] 3. Trapping Rain water (Hard)
-
+> ## Arrays  
 ### <b>1. Two Sum</b>
 
 [Q: Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.](https://leetcode.com/problems/two-sum/)
@@ -203,11 +198,6 @@ const getTrappedRainwater = function(heights) {
 ***
 
 > ## Strings
-
-- [ ] 1. Typed out strings (Easy)
-- [ ] 2. Longest substring without repeating characters (Medium)
-- [ ] 3. Valid Palindrome and Almost Palindrome
-
 ### <b>1. Typed out strings</b>
 
 [Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
@@ -391,10 +381,6 @@ validPalindrome(abca);
 ***
 
 > ## Linked Lists
-- [ ] 1. Reverse a Linked List(Easy)
-- [ ] 2. Longest substring without repeating characters (Medium)
-- [ ] 3. Valid Palindrome and Almost Palindrome
-
 ### <b>1. Reverse a Linked List</b>
 [Given the head of a singly linked list, reverse the list, and return the reversed list.](https://leetcode.com/problems/reverse-linked-list/)
 
