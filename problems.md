@@ -522,7 +522,7 @@ var detectCycle = function(head) {
 };
 ```
 
-Optimal solution: Using tortoise and hare(rabbit) alogirthm, the idea here is to increase the tortoise pointer by 1 and hare pointer by 2; if hair reaches the last value and it is null, then no cycle is detected.if hare and tortoise meets(equal), then cycle is detected. from there let p1 be the head and p2 be the last meeting point of hare and tortoise, if both p1===p2 return p1 or p2;
+Optimal solution: Using tortoise and hare(rabbit) alogirthm, the idea here is to increase the tortoise pointer by 1 and hare pointer by 2; if hair reaches the last value and it is null, then no cycle is detected.if hare and tortoise meets(equal), then cycle is detected. from there let p1 be the head and p2 be the last meeting point of hare and tortoise, if both p1===p2 return p1 or p2;[Repl](https://replit.com/@ZhangMYihua/cycle-detection-Flyods-tortoise-and-hare#main.js)
 
 ```javascript
 var detectCycle = function(head) {
