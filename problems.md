@@ -7,9 +7,13 @@
   - [Trapping rain water](#3-trapping-rain-water)
 - [Strings](#strings)
   - [Typed out strings](#1-typed-out-strings)
-  - [Longest substring without repeating characters](#longest-substring-without-repeating-characters-medium)
-  - [Palindromes](#palindromes)
+  - [Longest substring without repeating characters](#2-longest-substring-without-repeating-characters-medium)
+  - [Palindromes](#3-palindromes)
 - [Linked Lists](#linked-lists)
+  - [Reverse a Linked List](#1-reverse-a-linked-list)
+  - [M,N Reversals](#2-m-n-reversals)
+  - [Flattern a multilevel DLL](#3flatten-a-multilevel-doubly-linked-list)
+  - [Cycle detection in Linked List](#4-cycle-detecting-in-linked-list)
 <!-- /code_chunk_output -->
 
  ***
@@ -428,5 +432,120 @@ console.log(reverseLL(head));
 ```
 
 ### 2. M, N Reversals
+
+[Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.](https://leetcode.com/problems/reverse-linked-list-ii/)
+
+Solution: [Repl](https://replit.com/@ZhangMYihua/M-N-reversals)
+
+```javascript
+var reverseBetween = (head, left, right) => {
+    let start = head, cn = head, currentPos = 1;
+    while(currentPos < left){
+        start = cn;
+        cn = cn.next;
+        currentPos++;
+    }
+    let tail = cn, newList = null;
+    while(currentPos >= left && currentPos <= right){
+        next = cn.next;
+        cn.next = newList;
+        newList = cn;
+        cn = next;
+        currentPos++;
+    }
+    start.next = newList;
+    tail.next = cn;
+    if(left > 1){
+        return head;
+    }
+    else{
+        return newList;
+    }
+    
+}
+```
+
+### 3.Flatten a Multilevel Doubly Linked List
+
+[You are given a doubly linked list which in addition to the next and previous pointers, it could have a child pointer, which may or may not point to a separate doubly linked list. These child lists may have one or more children of their own, and so on, to produce a multilevel data structure, as shown in the example below.Flatten the list so that all the nodes appear in a single-level, doubly linked list. You are given the head of the first level of the list.](https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/)
+
+Solution: [Repl](https://replit.com/@ZhangMYihua/merge-multi-level-doubly-linked-list#main.js)
+
+```javascript
+var flatten = function(head) {
+    if(!head) return head;
+    let cn = head, start = head, tail = null;
+    
+    while(cn){
+        if(cn.child){
+            start = cn;
+            let temp = cn.child;
+            while(temp){
+                tail = temp;
+                temp = temp.next;
+            }
+            if(tail){
+                next = start.next;
+                start.next = start.child;
+                tail.next = next;
+                if(next) next.prev = tail;
+                start.child.prev = start;
+                start.child = null;  
+            }
+        }
+        cn = cn.next;
+    }
+    return head;
+};
+```
+
+### 4. Cycle detecting in Linked List
+
+[Given a linked list, return the node where the cycle begins. If there is no cycle, return null.There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.Notice that you should not modify the linked list.](https://leetcode.com/problems/linked-list-cycle-ii/)
+
+Brute force solution: Using set, add the each node to the set, if the element is present in set then return element. [Repl](https://replit.com/@ZhangMYihua/cycle-detection-with-Set)
+
+```javascript
+var detectCycle = function(head) {
+    if(!head) return head;
+    let cn = head, set = new Set();
+    while(cn){
+        if(set.has(cn)){
+            return cn;
+        }
+        else{
+            set.add(cn);
+        }
+        cn = cn.next;
+    }
+    return null;
+};
+```
+
+Optimal solution: Using tortoise and hare(rabbit) alogirthm, the idea here is to increase the tortoise pointer by 1 and hare pointer by 2; if hair reaches the last value and it is null, then no cycle is detected.if hare and tortoise meets(equal), then cycle is detected. from there let p1 be the head and p2 be the last meeting point of hare and tortoise, if both p1===p2 return p1 or p2;
+
+```javascript
+var detectCycle = function(head) {
+        if(!head) return null;
+        let tortoise = head, hare = head;
+        while(true){
+            tortoise = tortoise.next;
+            hare = hare.next;
+            if(hare === null || hare.next === null){
+                return null;
+            }
+            else{
+                hare = hare.next;
+            }
+            if(tortoise === hare) break;
+        }
+        let p1 = head, p2 = hare;
+        while(p1 !== p2){
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return p1;
+};
+```
 
 ***
