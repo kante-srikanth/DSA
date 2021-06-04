@@ -1,24 +1,33 @@
 
 # DSA Problems
 
-- [Arrays](#arrays)
-  - [Two sum](#1-two-sum)
-  - [Container with most water](#2-container-with-most-water)
-  - [Trapping rain water](#3-trapping-rain-water)
-- [Strings](#strings)
-  - [Typed out strings](#1-typed-out-strings)
-  - [Longest substring without repeating characters](#2-longest-substring-without-repeating-characters-medium)
-  - [Palindromes](#3-palindromes)
-- [Linked Lists](#linked-lists)
-  - [Reverse a Linked List](#1-reverse-a-linked-list)
-  - [M,N Reversals](#2-m-n-reversals)
-  - [Flattern a multilevel DLL](#3flatten-a-multilevel-doubly-linked-list)
-  - [Cycle detection in Linked List](#4-cycle-detecting-in-linked-list)
-<!-- /code_chunk_output -->
 
- ***
-
-> ## Arrays  
+ 
+  - [Arrays](#arrays)
+    - [1. Two Sum](#1-two-sum)
+    - [2. Container with most water](#2-container-with-most-water)
+    - [3. Trapping Rain water](#3-trapping-rain-water)
+    - [4.  Find Common Characters](#4--find-common-characters)
+  - [Strings](#strings)
+    - [1. Typed out strings](#1-typed-out-strings)
+    - [2. Longest Substring Without Repeating Characters (Medium)](#2-longest-substring-without-repeating-characters-medium)
+    - [3. Palindromes](#3-palindromes)
+    - [4. Split a String in Balanced Strings](#4-split-a-string-in-balanced-strings)
+  - [Linked Lists](#linked-lists)
+    - [1. Reverse a Linked List](#1-reverse-a-linked-list)
+    - [2. M, N Reversals](#2-m-n-reversals)
+    - [3. Flatten a Multilevel Doubly Linked List](#3flatten-a-multilevel-doubly-linked-list)
+    - [4. Cycle detecting in Linked List](#4-cycle-detecting-in-linked-list)
+  - [Stacks](#stacks)
+    - [1. Valid Parenthesis](#1-valid-parenthesis)
+    - [2. Minimum Remove to Make Valid Parenthesis](#2-minimum-remove-to-make-valid-parenthesis)
+  - [Queues](#queues)
+    - [1. Implement Queue using Stacks](#1-implement-queue-using-stacks)
+  - [Recursion(Sorting and Quickselect)](#recursionsorting-and-quickselect)
+    - [1. Factorial](#1-factorial)
+    - [2. Kth Largest Element in an Array](#2-kth-largest-element-in-an-array)
+    - [3.  Binary Search](#3--binary-search)
+## Arrays  
 
 ### 1. Two Sum
 
@@ -200,9 +209,36 @@ const getTrappedRainwater = function(heights) {
 }
 ```
 
+### 4.  Find Common Characters
+[Given an array words of strings made only from lowercase letters, return a list of all characters that show up in all strings within the list (including duplicates).  For example, if a character occurs 3 times in all strings but not 4 times, you need to include that character three times in the final answer.You may return the answer in any order.](https://leetcode.com/problems/find-common-characters/)
+
+
+```
+Input: ["bella","label","roller"]
+Output: ["e","l","l"]] 
+```
+Logic: From the given Array(A), we take the first item as the reference and add it to our result. then iterate all the items in the A.slice(1) and filter the result array by checking if char present in result is also present in the current item, then replace that char with empty string,and return    `return len > A[i] ` where len is the length of A[i] before performing operations.
+
+Solution: [Leetcode](https://leetcode.com/submissions/detail/503044741/)
+```javascript
+var commonChars = function(words) {
+    let result = [...words[0]];
+    
+    for(let i=1; i<words.length; i++){
+        result = result.filter(char => {
+            let len = words[i].length;
+            words[i] = words[i].replace(char, "");
+            return len>words[i].length;
+        });
+    }
+    
+    return result;
+};
+```
+
 ***
 
-> ## Strings
+## Strings
 
 ### 1. Typed out strings
 
@@ -384,9 +420,36 @@ function isValid(s, p, q){
 validPalindrome(abca);
 ```
 
+### 4. Split a String in Balanced Strings
+[Balanced strings are those that have an equal quantity of 'L' and 'R' characters.Given a balanced string s, split it in the maximum amount of balanced strings.Return the maximum amount of split balanced strings.](https://leetcode.com/problems/split-a-string-in-balanced-strings/)
+
+Logic: Using stack, we will push the first char in the given string to the stack, then  we will push again if we the see the same character else pop out the last element. then check stack length if it zero push it to our results array.
+
+Solution: [Leetcode](https://leetcode.com/submissions/detail/502989590/)
+
+```javascript
+var balancedStringSplit = function(s) {
+    let stack = [];
+    stack.push(s[0]);
+    let result = 0;
+    for(let i=1; i<s.length; i++){
+        if(stack.includes(s[i]) || stack.length === 0){
+            stack.push(s[i]);
+        }
+        else{
+            stack.pop();
+            if(!stack.length){
+                result += 1;
+            }
+        }
+    }
+    return result;
+};
+```
+
 ***
 
-> ## Linked Lists
+## Linked Lists
 
 ### 1. Reverse a Linked List
 
@@ -465,7 +528,7 @@ var reverseBetween = (head, left, right) => {
 }
 ```
 
-### 3.Flatten a Multilevel Doubly Linked List
+### 3. Flatten a Multilevel Doubly Linked List
 
 [You are given a doubly linked list which in addition to the next and previous pointers, it could have a child pointer, which may or may not point to a separate doubly linked list. These child lists may have one or more children of their own, and so on, to produce a multilevel data structure, as shown in the example below.Flatten the list so that all the nodes appear in a single-level, doubly linked list. You are given the head of the first level of the list.](https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/)
 
@@ -545,6 +608,189 @@ var detectCycle = function(head) {
             p2 = p2.next;
         }
         return p1;
+};
+```
+***
+
+## Stacks
+
+### 1. Valid Parenthesis
+[Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.An input string is valid if:Open brackets must be closed by the same type of brackets.Open brackets must be closed in the correct order.](https://leetcode.com/problems/valid-parentheses/)
+
+Solution: Using stacks and hashmaps. Hashmap is used to mapping pairs and when we encounter open element we push that to the stack, and when we see close we pop the stack `map[stack.pop()] !== c` return false. else if the stack length is empty true. [Repl](https://replit.com/@ZhangMYihua/valid-parentheses#main.js)
+
+```javascript
+var isValid = function(s) {
+    var map = {
+        "(" : ")",
+        "[" : "]",
+        "{" : "}",
+    };
+
+    let stack = [];
+    for(c of s){
+        if(c === "(" || c === "{" || c === "["){
+            stack.push(c);
+        }
+        else{
+            if(map[stack.pop()] !== c){
+                return false;
+            }
+        }
+    }
+    return stack.length === 0;
+};
+```
+
+### 2. Minimum Remove to Make Valid Parenthesis
+
+[Given a string s of '(' , ')' and lowercase English characters. Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/)
+
+Solution:
+```javascript
+var minRemoveToMakeValid = function(s) {
+    let res = s.split(""),
+        stack = [];
+    
+    for(let i=0; i<res.length; i++){
+        if(res[i] === "("){
+            stack.push(i);
+        }
+        else if(res[i] === ")" && stack.length){
+            stack.pop();
+        } else if(res[i] === ")"){
+            res[i] = "";
+        }
+    }
+    
+    while(stack.length){
+        const ci = stack.pop();
+        res[ci] = "";
+    }
+    
+    return res.join("");
+};
+```
+***
+
+## Queues
+
+### 1. Implement Queue using Stacks
+[Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).](https://leetcode.com/problems/implement-queue-using-stacks/)
+
+Solution: [Repl](https://replit.com/@ZhangMYihua/Create-Queue-using-stacks)
+```javascript
+var MyQueue = function() {
+    this.stackIn = [];
+    this.stackOut = [];
+};
+
+MyQueue.prototype.push = function(x) {
+    this.stackIn.push(x);
+};
+
+MyQueue.prototype.pop = function() {
+    console.log(this.stackOut);
+    if(this.stackOut.length === 0){
+        while(this.stackIn.length){
+            this.stackOut.push(this.stackIn.pop());
+        }
+    }
+    return this.stackOut.pop();
+};
+
+MyQueue.prototype.peek = function() {
+    if(this.stackOut.length === 0){
+        while(this.stackIn.length){
+            this.stackOut.push(this.stackIn.pop());
+        }
+    }
+    return this.stackOut[this.stackOut.length-1];
+};
+
+MyQueue.prototype.empty = function() {
+    if(this.stackIn.length === 0 && this.stackOut.length === 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
+```
+***
+
+## Recursion(Sorting and Quickselect)
+
+### 1. Factorial 
+
+**Normal Recursion**
+
+Solution: Space complexity O(n), as call stack needs to remember previous value in every step. Here original function call is waiting for the subsequent recursive calls. so it has to store all the function calls in the stack.
+```javascript
+function factorial(n){
+    if(n <= 1){
+        return 1;
+    }
+    return n * factorial(n-1);
+
+}
+
+factorial(5);
+```
+
+**TailRecursion**
+
+Solution: Space complexity is O(1), we return the value of function call every time, we dont need to store the previous value. Here original function dont need to store anything, when original call is executed it passes the value by performing some calculations to the next recursive calls. so we dont store anything here. 
+
+```javascript
+function factorial(n, total=1){
+    if(n === 0){
+        return total;
+    }
+    return factorial(n-1, total * n);
+
+}
+
+factorial(5);
+```
+### 2. Kth Largest Element in an Array
+[Given an integer array nums and an integer k, return the kth largest element in the array.Note that it is the kth largest element in the sorted order, not the kth distinct element.](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+
+Solution 1: Using built in methods:
+```javascript
+var findKthLargest = function(nums, k) {
+    if(nums.length === 1) return nums;
+    return nums.sort((a,b) => a-b)[nums.length-k];
+};
+```
+
+Solution 2:  Using quicksort [Repl](https://replit.com/@ZhangMYihua/Find-kth-largest-element-Quicksort#main.js)
+
+Solution 3: Using quickselect[Repl](https://replit.com/@ZhangMYihua/Find-kth-largest-element-Quickselect#main.js)
+
+
+
+### 3.  Binary Search
+[Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.You must write an algorithm with O(log n) runtime complexity.](https://leetcode.com/problems/binary-search/)
+
+Solution:
+```javascript
+var search = function(nums, target) {
+    let left = 0, right = nums.length-1;
+    while(left <= right){
+        let middle = Math.floor((left+right)/2);
+        const foundVal = nums[middle];
+        if(foundVal === target){
+           return middle;
+        }
+        if(foundVal < target){
+            left = middle+1;
+        }
+        else{
+            right = middle-1;
+        }
+    }
+    return -1;
 };
 ```
 

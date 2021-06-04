@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>DSA Problems</title>
+        <style>
+/* From extension zhuangtongfa.material-theme */
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body {
+  box-sizing: border-box;
+  min-width: 200px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote {
+  background-color: initial;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+  color: initial;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
+  color: inherit;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre code {
+  color: initial;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code > div {
+  background: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table td {
+  border: 1px solid rgba(171, 178, 191, 0.5) !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection .code-active-line:before {
+  border-left: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection .code-line:hover:before {
+  border-left: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection .code-line .code-line:hover:before {
+  border-left: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+/* Generated from 'node_modules/github-markdown-css/github-markdown.css' */
+@font-face {
+  font-family: octicons-link;
+  src: url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format("woff");
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: #abb2bf;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  background: #282c34;
+  padding-top: 20px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c {
+  color: #6a737d;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s .pl-v {
+  color: #005cc5;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-e, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-en {
+  color: #6f42c1;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-smi, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s .pl-s1 {
+  color: #24292e;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ent {
+  color: #22863a;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-k {
+  color: #d73a49;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-pds, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s .pl-pse .pl-s1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-cce, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-sre, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-sra {
+  color: #032f62;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-v, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-smw {
+  color: #e36209;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-bu {
+  color: #b31d28;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ii {
+  color: #fafbfc;
+  background-color: #b31d28;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c2 {
+  color: #fafbfc;
+  background-color: #d73a49;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c2::before {
+  content: "^M";
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #22863a;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ml {
+  color: #735c0f;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mh, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mh .pl-en, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ms {
+  font-weight: bold;
+  color: #005cc5;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi {
+  font-style: italic;
+  color: #24292e;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mb {
+  font-weight: bold;
+  color: #24292e;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-md {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi1 {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mc {
+  color: #e36209;
+  background-color: #ffebda;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi2 {
+  color: #f6f8fa;
+  background-color: #005cc5;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mdr {
+  font-weight: bold;
+  color: #6f42c1;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ba {
+  color: #586069;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sg {
+  color: #959da5;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-corl {
+  text-decoration: underline;
+  color: #032f62;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .octicon {
+  display: inline-block;
+  vertical-align: text-top;
+  fill: currentColor;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a {
+  background-color: transparent;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:active, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:hover {
+  outline-width: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
+  font-weight: inherit;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
+  font-weight: bolder;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img {
+  border-style: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
+  font: inherit;
+  margin: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
+  overflow: visible;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body [type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body * {
+  box-sizing: border-box;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a {
+  color: #528bff;
+  text-decoration: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:hover {
+  text-decoration: underline;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dfe2e5;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr::before {
+  display: table;
+  content: "";
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body td, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body th {
+  padding: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
+  font-size: 32px;
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+  font-size: 12px;
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote {
+  margin: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol {
+  list-style-type: lower-roman;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ul ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ul ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dd {
+  margin-left: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .octicon {
+  vertical-align: text-bottom;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-0 {
+  padding-left: 0 !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-1 {
+  padding-left: 4px !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-2 {
+  padding-left: 8px !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-3 {
+  padding-left: 16px !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-4 {
+  padding-left: 24px !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-5 {
+  padding-left: 32px !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-6 {
+  padding-left: 40px !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body::before {
+  display: table;
+  content: "";
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body > *:first-child {
+  margin-top: 0 !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .anchor:focus {
+  outline: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e1e4e8;
+  border: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote {
+  /* padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5; */
+  padding: 8.5px 17px;
+  margin: 1.5em 0;
+  font-size: inherit;
+  color: #7c879c;
+  border-color: #4b5362;
+  border-width: 4px;
+  border-left: 5px solid #4b5362;
+  background: transparent;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote > :first-child {
+  margin-top: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: solid 1px #c6cbd1;
+  border-bottom-color: #959da5;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #959da5;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #f0f0f0;
+  border-bottom: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 .octicon-link {
+  color: #1b1f23;
+  vertical-align: middle;
+  visibility: hidden;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6:hover .anchor {
+  text-decoration: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 {
+  font-size: 1.25em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 {
+  font-size: 1em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 {
+  font-size: 0.875em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+  font-size: 0.85em;
+  color: #6a737d;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol {
+  padding-left: 2em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li {
+  word-wrap: break-all;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li > p {
+  margin-top: 16px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li + li {
+  margin-top: 0.25em;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl {
+  padding: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th {
+  font-weight: 700;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table td {
+  padding: 6px 13px;
+  /* border: 1px solid #dfe2e5; */
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table tr {
+  /* background-color: #fff; */
+  /* border-top: 1px solid #c6cbd1; */
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table tr:nth-child(2n) {
+  /* background-color: #f6f8fa; */
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img {
+  max-width: 100%;
+  box-sizing: content-box;
+  display: inline-block;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img[align=right] {
+  padding-left: 20px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img[align=left] {
+  padding-right: 20px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: #3a3f4b;
+  border-radius: 3px;
+  color: white;
+  margin: 0 1px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+  word-wrap: normal;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .highlight {
+  margin-bottom: 16px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .highlight pre, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  /* background-color: #f6f8fa; */
+  border-radius: 3px;
+  background-color: #31363f;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre code {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+  color: #abb2bf;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .full-commit .btn-outline:not(:disabled):hover {
+  color: #005cc5;
+  border-color: #005cc5;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: solid 1px #d1d5da;
+  border-bottom-color: #c6cbd1;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #c6cbd1;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body :checked + .radio-label {
+  position: relative;
+  z-index: 1;
+  border-color: #0366d6;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .task-list-item {
+  list-style-type: none;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .task-list-item + .task-list-item {
+  margin-top: 3px;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .task-list-item input {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+  border-bottom-color: #eee;
+}
+
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #abb2bf;
+  background: #282c34;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-comment,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-quote {
+  color: #5c6370;
+  font-style: italic;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-doctag,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-keyword,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-formula {
+  color: #c678dd;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-section,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-name,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-tag,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-deletion,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-subst {
+  color: #e06c75;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-literal {
+  color: #56b6c2;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-string,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-regexp,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-addition,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-attribute,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-meta-string {
+  color: #98c379;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-built_in,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-class .hljs-title {
+  color: #e6c07b;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-attr,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-variable,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-template-variable,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-type,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-class,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-attr,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-pseudo,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-number {
+  color: #d19a66;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-symbol,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-bullet,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-link,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-meta,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-id,
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-title {
+  color: #61aeee;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-emphasis {
+  font-style: italic;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-strong {
+  font-weight: bold;
+}
+.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-link {
+  text-decoration: underline;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="dsa-problems">DSA Problems</h1>
+<ul>
+<li><a href="#arrays">Arrays</a>
+<ul>
+<li><a href="#1-two-sum">1. Two Sum</a></li>
+<li><a href="#2-container-with-most-water">2. Container with most water</a></li>
+<li><a href="#3-trapping-rain-water">3. Trapping Rain water</a></li>
+<li><a href="#4--find-common-characters">4.  Find Common Characters</a></li>
+</ul>
+</li>
+<li><a href="#strings">Strings</a>
+<ul>
+<li><a href="#1-typed-out-strings">1. Typed out strings</a></li>
+<li><a href="#2-longest-substring-without-repeating-characters-medium">2. Longest Substring Without Repeating Characters (Medium)</a></li>
+<li><a href="#3-palindromes">3. Palindromes</a></li>
+<li><a href="#4-split-a-string-in-balanced-strings">4. Split a String in Balanced Strings</a></li>
+</ul>
+</li>
+<li><a href="#linked-lists">Linked Lists</a>
+<ul>
+<li><a href="#1-reverse-a-linked-list">1. Reverse a Linked List</a></li>
+<li><a href="#2-m-n-reversals">2. M, N Reversals</a></li>
+<li><a href="#3flatten-a-multilevel-doubly-linked-list">3. Flatten a Multilevel Doubly Linked List</a></li>
+<li><a href="#4-cycle-detecting-in-linked-list">4. Cycle detecting in Linked List</a></li>
+</ul>
+</li>
+<li><a href="#stacks">Stacks</a>
+<ul>
+<li><a href="#1-valid-parenthesis">1. Valid Parenthesis</a></li>
+<li><a href="#2-minimum-remove-to-make-valid-parenthesis">2. Minimum Remove to Make Valid Parenthesis</a></li>
+</ul>
+</li>
+<li><a href="#queues">Queues</a>
+<ul>
+<li><a href="#1-implement-queue-using-stacks">1. Implement Queue using Stacks</a></li>
+</ul>
+</li>
+<li><a href="#recursionsorting-and-quickselect">Recursion(Sorting and Quickselect)</a>
+<ul>
+<li><a href="#1-factorial">1. Factorial</a></li>
+<li><a href="#2-kth-largest-element-in-an-array">2. Kth Largest Element in an Array</a></li>
+<li><a href="#3--binary-search">3.  Binary Search</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="arrays">Arrays</h2>
+<h3 id="1-two-sum">1. Two Sum</h3>
+<p><a href="https://leetcode.com/problems/two-sum/">Q: Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</a></p>
+<p>Logic: find the target-currentElement in the array is present in array, if yes return the indices, if not traverse again.</p>
+<p>Brute Force Solution: Two nested for loops,  compare first element with other elements in the array.. and so on .. till we find the target <a href="https://replit.com/@ZhangMYihua/two-sum-brute-force">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> numsArray = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>];
+<span class="hljs-keyword">const</span> targetToFind = <span class="hljs-number">11</span>;
+
+
+<span class="hljs-keyword">const</span> findTwoSum = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nums, target</span>) </span>{
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> p1 = <span class="hljs-number">0</span>; p1 &lt; nums.length; p1++) {
+    
+    <span class="hljs-keyword">const</span> numberToFind = target - nums[p1];
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> p2 = p1 + <span class="hljs-number">1</span>; p2 &lt; nums.length; p2++) {
+      <span class="hljs-keyword">if</span>(numberToFind === nums[p2]) {
+        <span class="hljs-keyword">return</span> [p1, p2];
+      }
+    }
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+
+<span class="hljs-built_in">console</span>.log(findTwoSum(numsArray, targetToFind));
+</div></code></pre>
+<p>Optimal Solution: Using hashmap, store the target-currentitem in hashmap, if it found return the value  <a href="https://replit.com/@ZhangMYihua/two-sum-optimal-solution">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> numsArray = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">2</span>];
+<span class="hljs-keyword">const</span> targetToFind = <span class="hljs-number">11</span>;
+
+<span class="hljs-keyword">const</span> findTwoSum = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nums, target</span>) </span>{
+  <span class="hljs-keyword">const</span> numsMap = {};
+  
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> p = <span class="hljs-number">0</span>; p &lt; nums.length; p++) {
+    <span class="hljs-keyword">const</span> currentMapVal = numsMap[nums[p]];
+
+    <span class="hljs-keyword">if</span>(currentMapVal &gt;= <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> [currentMapVal, p];
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">const</span> numberToFind = target - nums[p];
+      numsMap[numberToFind] = p;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-built_in">console</span>.log(findTwoSum(numsArray, targetToFind));
+</div></code></pre>
+<h3 id="2-container-with-most-water">2. Container with most water</h3>
+<p><a href="https://leetcode.com/problems/container-with-most-water/">Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.</a></p>
+<p>Logic: find water between two points by calculating <code>water = Math.min(arr[i], arr[j]) * j-1</code> and then Maxwater= Math.max(maxwater, water) gives the max water container</p>
+<p>Brute Force solution: Nested for loops <a href="https://replit.com/@ZhangMYihua/maximum-water-container-brute-force-solution">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> heightsArray = [<span class="hljs-number">4</span>,<span class="hljs-number">8</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>];
+
+<span class="hljs-keyword">const</span> getMaxWaterContainer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">heights</span>) </span>{
+  <span class="hljs-keyword">let</span> maxArea = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> p1 = <span class="hljs-number">0</span>; p1 &lt; heights.length; p1++) {
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> p2 = p1 + <span class="hljs-number">1</span>; p2 &lt; heights.length; p2++) {
+      <span class="hljs-keyword">const</span> height = <span class="hljs-built_in">Math</span>.min(heights[p1], heights[p2]);
+      <span class="hljs-keyword">const</span> width = p2 - p1;
+      <span class="hljs-keyword">const</span> area = height * width;
+      maxArea = <span class="hljs-built_in">Math</span>.max(maxArea, area);
+    }
+  };
+
+  <span class="hljs-keyword">return</span> maxArea;
+}
+
+<span class="hljs-built_in">console</span>.log(getMaxWaterContainer(heightsArray));
+</div></code></pre>
+<p>Optimal solution:  two pointer solution, let p1 be the first item , p2 be the last item and traverse the elements using while loop. <a href="https://replit.com/@ZhangMYihua/maximum-water-container-optimal-solution">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> heightsArray = [<span class="hljs-number">4</span>,<span class="hljs-number">8</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>];
+
+<span class="hljs-keyword">const</span> getMaxWaterContainer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">heights</span>) </span>{
+  <span class="hljs-keyword">let</span> p1 = <span class="hljs-number">0</span>, p2 = heights.length - <span class="hljs-number">1</span>, maxArea = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">while</span>(p1 &lt; p2) {
+    <span class="hljs-keyword">const</span> height = <span class="hljs-built_in">Math</span>.min(heights[p1], heights[p2]);
+    <span class="hljs-keyword">const</span> width = p2 - p1;
+    <span class="hljs-keyword">const</span> area = height * width;
+    maxArea = <span class="hljs-built_in">Math</span>.max(maxArea, area);
+    
+    <span class="hljs-keyword">if</span>(heights[p1] &lt;= heights[p2]) {
+      p1++;
+    } <span class="hljs-keyword">else</span> {
+      p2--;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> maxArea;
+}
+
+<span class="hljs-built_in">console</span>.log(getMaxWaterContainer(heightsArray));
+</div></code></pre>
+<h3 id="3-trapping-rain-water">3. Trapping Rain water</h3>
+<p><a href="https://leetcode.com/problems/trapping-rain-water/">Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.</a></p>
+<p>Logic: We need to find the water at a give point of element. let c be the current item.  maximum element of left side of c is maxLeft, and maximum element of right side of c is maxRight. and then water unit at that element can be calculated as <code>Math.min(maxLeft, maxRight) - arr[c]</code> where arr[c] is the current element height.</p>
+<p>Brute force solution:  for loop is used to traverse all elements and while is used for find the maxRight and maxLeft <a href="https://replit.com/@ZhangMYihua/trapping-rainwater-brute-force-solution#main.js">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> heights = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>]
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getMax</span>(<span class="hljs-params">heights</span>)</span>{
+ <span class="hljs-keyword">let</span> total = <span class="hljs-number">0</span>;   
+
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i&lt;heights.length; i++){
+  <span class="hljs-keyword">let</span> maxL = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">let</span> maxR = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">let</span> right = i+<span class="hljs-number">1</span>;
+  <span class="hljs-keyword">let</span> left = i<span class="hljs-number">-1</span>;
+  <span class="hljs-keyword">while</span>(right &lt; heights.length){
+      maxR = <span class="hljs-built_in">Math</span>.max(maxR, heights[right]);
+      right++;   
+  }
+  <span class="hljs-keyword">while</span>(left &gt;= <span class="hljs-number">0</span>){
+      maxL = <span class="hljs-built_in">Math</span>.max(maxL, heights[left]);
+      left--;
+  }
+  <span class="hljs-keyword">let</span> waterunit = <span class="hljs-built_in">Math</span>.min(maxL, maxR) - heights[i];
+  total += waterunit &lt; <span class="hljs-number">0</span> ? <span class="hljs-number">0</span>: waterunit;
+ }
+
+ <span class="hljs-keyword">return</span> total;
+}
+
+getMax(heights);
+</div></code></pre>
+<p>Optimal solution:using while loop and two pointers solution <a href="https://replit.com/@ZhangMYihua/trapping-rainwater-optimal-solution">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> getTrappedRainwater = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">heights</span>) </span>{
+
+  <span class="hljs-keyword">let</span> left = <span class="hljs-number">0</span>, right = heights.length - <span class="hljs-number">1</span>, totalWater = <span class="hljs-number">0</span>, maxLeft = <span class="hljs-number">0</span>, maxRight = <span class="hljs-number">0</span>;
+  
+  <span class="hljs-keyword">while</span>(left &lt; right) {
+    <span class="hljs-keyword">if</span>(heights[left] &lt;= heights[right]) {
+      <span class="hljs-keyword">if</span>(heights[left] &gt;= maxLeft) { 
+        maxLeft = heights[left]
+      } <span class="hljs-keyword">else</span> { 
+        totalWater += maxLeft - heights[left];
+      }
+      left++;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">if</span>(heights[right] &gt;= maxRight) {
+          maxRight = heights[right];
+      } <span class="hljs-keyword">else</span> {
+          totalWater += maxRight - heights[right];
+      }
+        
+      right--;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> totalWater;
+}
+</div></code></pre>
+<h3 id="4--find-common-characters">4.  Find Common Characters</h3>
+<p><a href="https://leetcode.com/problems/find-common-characters/">Given an array words of strings made only from lowercase letters, return a list of all characters that show up in all strings within the list (including duplicates).  For example, if a character occurs 3 times in all strings but not 4 times, you need to include that character three times in the final answer.You may return the answer in any order.</a></p>
+<pre><code><code><div>Input: [&quot;bella&quot;,&quot;label&quot;,&quot;roller&quot;]
+Output: [&quot;e&quot;,&quot;l&quot;,&quot;l&quot;]] 
+</div></code></code></pre>
+<p>Logic: From the given Array(A), we take the first item as the reference and add it to our result. then iterate all the items in the A.slice(1) and filter the result array by checking if char present in result is also present in the current item, then replace that char with empty string,and return    <code>return len &gt; A[i] </code> where len is the length of A[i] before performing operations.</p>
+<p>Solution: <a href="https://leetcode.com/submissions/detail/503044741/">Leetcode</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> commonChars = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">words</span>) </span>{
+    <span class="hljs-keyword">let</span> result = [...words[<span class="hljs-number">0</span>]];
+    
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">1</span>; i&lt;words.length; i++){
+        result = result.filter(<span class="hljs-function"><span class="hljs-params">char</span> =&gt;</span> {
+            <span class="hljs-keyword">let</span> len = words[i].length;
+            words[i] = words[i].replace(char, <span class="hljs-string">&quot;&quot;</span>);
+            <span class="hljs-keyword">return</span> len&gt;words[i].length;
+        });
+    }
+    
+    <span class="hljs-keyword">return</span> result;
+};
+</div></code></pre>
+<hr>
+<h2 id="strings">Strings</h2>
+<h3 id="1-typed-out-strings">1. Typed out strings</h3>
+<p><a href="https://leetcode.com/problems/backspace-string-compare/">Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
+Note that after backspacing an empty text, the text will continue empty.
+</a></p>
+<p>Logic: Using stacks. Traverse through the chars in the given string, if the current is not equal to &quot;#&quot; push it to the stack, and if it equals pop out the last element in the stack.</p>
+<p>Brute force solution: <a href="https://replit.com/@ZhangMYihua/typed-out-strings-brute-force#main.js">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> backspaceCompare = <span class="hljs-function">(<span class="hljs-params">S, T</span>) =&gt;</span> convert(S) === convert(T);
+
+<span class="hljs-keyword">const</span> convert = <span class="hljs-function"><span class="hljs-params">String</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> temp = [];
+    <span class="hljs-keyword">for</span>(c <span class="hljs-keyword">of</span> <span class="hljs-built_in">String</span>){
+        c !== <span class="hljs-string">&quot;#&quot;</span> ?  temp.push(c) : temp.pop();
+    }
+    <span class="hljs-keyword">return</span> temp.join(<span class="hljs-string">&quot;&quot;</span>);
+}
+</div></code></pre>
+<p>Optimal solution: Two pointer solution, initially p1 is pointing to lastelement in the firstArray, p2 is pointing to lastelement in the secondArray.. if p1 === p2 then increment the counters.<a href="https://replit.com/@ZhangMYihua/backspace-string-compare-optimal">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> string1 = <span class="hljs-string">&quot;ab#z&quot;</span>
+<span class="hljs-keyword">const</span> string2 = <span class="hljs-string">&quot;az#z&quot;</span>
+
+<span class="hljs-keyword">var</span> backspaceCompare = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">S, T</span>) </span>{
+    <span class="hljs-keyword">let</span> p1 = S.length - <span class="hljs-number">1</span>, p2 = T.length - <span class="hljs-number">1</span>;
+    
+    <span class="hljs-keyword">while</span>(p1 &gt;= <span class="hljs-number">0</span> || p2 &gt;= <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">if</span>(S[p1] === <span class="hljs-string">&quot;#&quot;</span> || T[p2] === <span class="hljs-string">&quot;#&quot;</span>) {
+            <span class="hljs-keyword">if</span>(S[p1] === <span class="hljs-string">&quot;#&quot;</span>) {
+                <span class="hljs-keyword">let</span> backCount = <span class="hljs-number">2</span>;
+                
+                <span class="hljs-keyword">while</span>(backCount &gt; <span class="hljs-number">0</span>) {
+                    p1--;
+                    backCount--;
+                    
+                    <span class="hljs-keyword">if</span>(S[p1] === <span class="hljs-string">&quot;#&quot;</span>) {
+                        backCount += <span class="hljs-number">2</span>;
+                    }
+                }
+            }
+            
+            <span class="hljs-keyword">if</span>(T[p2] === <span class="hljs-string">&quot;#&quot;</span>) {
+                <span class="hljs-keyword">let</span> backCount = <span class="hljs-number">2</span>;
+                
+                <span class="hljs-keyword">while</span>(backCount &gt; <span class="hljs-number">0</span>) {
+                    p2--;
+                    backCount--;
+                    
+                    <span class="hljs-keyword">if</span>(T[p2] === <span class="hljs-string">&quot;#&quot;</span>) {
+                        backCount += <span class="hljs-number">2</span>;
+                    }
+                }
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span>(S[p1] !== T[p2]) {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            } <span class="hljs-keyword">else</span> {
+                p1--;
+                p2--;
+            }
+        }
+    }
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+<span class="hljs-built_in">console</span>.log(backspaceCompare(string1, string2));
+</div></code></pre>
+<h3 id="2-longest-substring-without-repeating-characters-medium">2. Longest Substring Without Repeating Characters (Medium)</h3>
+<p><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Given a string s, find the length of the longest substring without repeating characters.</a></p>
+<p>Logic: store the chars one by one in temp variable, and longest  = temp.length, if it encounters repeating char, then slice the string.</p>
+<p>Solution 1: Using temp variable</p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> lengthOfLongestSubstring = <span class="hljs-function"><span class="hljs-params">str</span> =&gt;</span> {
+ <span class="hljs-keyword">const</span> strLen = str.length;
+ <span class="hljs-keyword">if</span>(strLen &lt; <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> strLen;
+ <span class="hljs-keyword">let</span> longest = <span class="hljs-number">0</span>, temp = <span class="hljs-string">&quot;&quot;</span>;
+ <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; strLen; i++){
+   <span class="hljs-keyword">if</span>(temp.indexOf(str[i]) &gt;= <span class="hljs-number">0</span>){
+      temp = temp.slice(temp.indexOf(str[i])+<span class="hljs-number">1</span>) + str[i];
+   }
+   <span class="hljs-keyword">else</span>{
+       temp = temp + str[i];
+       longest = <span class="hljs-built_in">Math</span>.max(longest, temp.length);
+   } 
+ }
+ <span class="hljs-keyword">return</span> longest
+}
+</div></code></pre>
+<p>Solution 2: Using hashmap <a href="https://replit.com/@ZhangMYihua/longest-substring-without-repeat-characters-optimal">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">const</span> string = <span class="hljs-string">&quot;au&quot;</span>
+
+<span class="hljs-keyword">const</span> lengthOfLongestSubstring = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">s</span>) </span>{
+    <span class="hljs-keyword">if</span>(s.length &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> s.length;
+    
+    <span class="hljs-keyword">const</span> seen = {};
+    <span class="hljs-keyword">let</span> left = <span class="hljs-number">0</span>, longest = <span class="hljs-number">0</span>;
+    
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> right = <span class="hljs-number">0</span>; right &lt; s.length; right++) {
+        <span class="hljs-keyword">const</span> currentChar = s[right];
+        <span class="hljs-keyword">const</span> previouslySeenChar = seen[currentChar];
+        
+        <span class="hljs-keyword">if</span>(previouslySeenChar &gt;= left) {
+          left = previouslySeenChar + <span class="hljs-number">1</span>;
+        }
+        
+        seen[currentChar] = right;
+        
+        longest = <span class="hljs-built_in">Math</span>.max(longest, right - left + <span class="hljs-number">1</span>);
+    }
+    
+    <span class="hljs-keyword">return</span> longest;
+};
+
+<span class="hljs-built_in">console</span>.log(lengthOfLongestSubstring(string));
+
+</div></code></pre>
+<h3 id="3-palindromes">3. Palindromes</h3>
+<p>Approaches: Following are some of approaches to find if a string is palindrome or not.</p>
+<ol>
+<li>Approach: Two pointers technique.let p be the first char in the given string and q be the last char in the given string. and compare p === q if true then do p++ and q-- ... if it is false then return not a palindrome. Inward pointers, in this case pointers move inwards</li>
+<li>Approach: Instead of inward pointer, in this case pointers are at center position and they move outward</li>
+<li>Approach: Given string is S. In this apporach we reverse the given string and store it in variable S'.  let p pointer is pointing to first char in the S and q pointer is pointing to first char in S'. then compare p and q.</li>
+<li>Approach: Using builtin methods. reverse the string and compare <code>str === str.reverse()</code></li>
+</ol>
+<p><a href="https://leetcode.com/problems/valid-palindrome/">Q1: Valid Palindromes - 1</a></p>
+<p>Solutions:</p>
+<ul>
+<li><a href="https://replit.com/@ZhangMYihua/Valid-Palindrome-2-pointers-from-center#main.js">outward pointers</a></li>
+<li><a href="https://replit.com/@ZhangMYihua/Valid-Palindrome-2-pointers-from-outside">inward pointers</a></li>
+<li><a href="https://replit.com/@ZhangMYihua/Valid-Palindrome-compare-against-reverse#main.js">string reverse</a></li>
+</ul>
+<p><a href="https://leetcode.com/problems/valid-palindrome-ii/">Q2: Valid Palindrome - 11</a></p>
+<p>Solution: <a href="https://replit.com/@ZhangMYihua/Almost-palindrome-solution#main.js">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> validPalindrome = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">s</span>) </span>{
+    <span class="hljs-keyword">let</span> p=<span class="hljs-number">0</span>,
+        q=s.length<span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">while</span>(p &lt;= q){
+        <span class="hljs-keyword">if</span>(s[p] !== s[q]){
+            <span class="hljs-keyword">return</span> isValid(s,p+<span class="hljs-number">1</span>, q) || isValid(s, p, q<span class="hljs-number">-1</span>);
+        }
+        p++;
+        q--;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValid</span>(<span class="hljs-params">s, p, q</span>)</span>{
+  <span class="hljs-keyword">while</span>(p &lt; q){
+      <span class="hljs-keyword">if</span>(s[p] !== s[q]){
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+      };
+      p++;
+      q--;
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+}
+
+validPalindrome(abca);
+</div></code></pre>
+<h3 id="4-split-a-string-in-balanced-strings">4. Split a String in Balanced Strings</h3>
+<p><a href="https://leetcode.com/problems/split-a-string-in-balanced-strings/">Balanced strings are those that have an equal quantity of 'L' and 'R' characters.Given a balanced string s, split it in the maximum amount of balanced strings.Return the maximum amount of split balanced strings.</a></p>
+<p>Logic: Using stack, we will push the first char in the given string to the stack, then  we will push again if we the see the same character else pop out the last element. then check stack length if it zero push it to our results array.</p>
+<p>Solution: <a href="https://leetcode.com/submissions/detail/502989590/">Leetcode</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> balancedStringSplit = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">s</span>) </span>{
+    <span class="hljs-keyword">let</span> stack = [];
+    stack.push(s[<span class="hljs-number">0</span>]);
+    <span class="hljs-keyword">let</span> result = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">1</span>; i&lt;s.length; i++){
+        <span class="hljs-keyword">if</span>(stack.includes(s[i]) || stack.length === <span class="hljs-number">0</span>){
+            stack.push(s[i]);
+        }
+        <span class="hljs-keyword">else</span>{
+            stack.pop();
+            <span class="hljs-keyword">if</span>(!stack.length){
+                result += <span class="hljs-number">1</span>;
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> result;
+};
+</div></code></pre>
+<hr>
+<h2 id="linked-lists">Linked Lists</h2>
+<h3 id="1-reverse-a-linked-list">1. Reverse a Linked List</h3>
+<p><a href="https://leetcode.com/problems/reverse-linked-list/">Given the head of a singly linked list, reverse the list, and return the reversed list.</a></p>
+<p>Solution: <a href="https://replit.com/@ZhangMYihua/reverse-linked-list#main.js">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> head = {
+  <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">next</span>: {
+    <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">next</span>: {
+      <span class="hljs-attr">value</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-attr">next</span>: {
+        <span class="hljs-attr">value</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-attr">next</span>: {
+          <span class="hljs-attr">value</span>: <span class="hljs-number">5</span>,
+          <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span>
+        }
+      }
+    }
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverseLL</span>(<span class="hljs-params">head</span>)</span>{
+  <span class="hljs-keyword">let</span> prev = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">let</span> cn = head;
+  <span class="hljs-keyword">while</span>(cn){
+    <span class="hljs-keyword">let</span> next = cn.next;
+    cn.next = prev;
+    prev = cn;
+    cn = next;
+  }
+  <span class="hljs-keyword">while</span>(prev){
+    <span class="hljs-built_in">console</span>.log(prev.value);
+    prev = prev.next;
+  }
+}
+
+<span class="hljs-built_in">console</span>.log(reverseLL(head));
+
+</div></code></pre>
+<h3 id="2-m-n-reversals">2. M, N Reversals</h3>
+<p><a href="https://leetcode.com/problems/reverse-linked-list-ii/">Given the head of a singly linked list and two integers left and right where left &lt;= right, reverse the nodes of the list from position left to position right, and return the reversed list.</a></p>
+<p>Solution: <a href="https://replit.com/@ZhangMYihua/M-N-reversals">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> reverseBetween = <span class="hljs-function">(<span class="hljs-params">head, left, right</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> start = head, cn = head, currentPos = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span>(currentPos &lt; left){
+        start = cn;
+        cn = cn.next;
+        currentPos++;
+    }
+    <span class="hljs-keyword">let</span> tail = cn, newList = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">while</span>(currentPos &gt;= left &amp;&amp; currentPos &lt;= right){
+        next = cn.next;
+        cn.next = newList;
+        newList = cn;
+        cn = next;
+        currentPos++;
+    }
+    start.next = newList;
+    tail.next = cn;
+    <span class="hljs-keyword">if</span>(left &gt; <span class="hljs-number">1</span>){
+        <span class="hljs-keyword">return</span> head;
+    }
+    <span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> newList;
+    }
+    
+}
+</div></code></pre>
+<h3 id="3-flatten-a-multilevel-doubly-linked-list">3. Flatten a Multilevel Doubly Linked List</h3>
+<p><a href="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/">You are given a doubly linked list which in addition to the next and previous pointers, it could have a child pointer, which may or may not point to a separate doubly linked list. These child lists may have one or more children of their own, and so on, to produce a multilevel data structure, as shown in the example below.Flatten the list so that all the nodes appear in a single-level, doubly linked list. You are given the head of the first level of the list.</a></p>
+<p>Solution: <a href="https://replit.com/@ZhangMYihua/merge-multi-level-doubly-linked-list#main.js">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> flatten = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">head</span>) </span>{
+    <span class="hljs-keyword">if</span>(!head) <span class="hljs-keyword">return</span> head;
+    <span class="hljs-keyword">let</span> cn = head, start = head, tail = <span class="hljs-literal">null</span>;
+    
+    <span class="hljs-keyword">while</span>(cn){
+        <span class="hljs-keyword">if</span>(cn.child){
+            start = cn;
+            <span class="hljs-keyword">let</span> temp = cn.child;
+            <span class="hljs-keyword">while</span>(temp){
+                tail = temp;
+                temp = temp.next;
+            }
+            <span class="hljs-keyword">if</span>(tail){
+                next = start.next;
+                start.next = start.child;
+                tail.next = next;
+                <span class="hljs-keyword">if</span>(next) next.prev = tail;
+                start.child.prev = start;
+                start.child = <span class="hljs-literal">null</span>;  
+            }
+        }
+        cn = cn.next;
+    }
+    <span class="hljs-keyword">return</span> head;
+};
+</div></code></pre>
+<h3 id="4-cycle-detecting-in-linked-list">4. Cycle detecting in Linked List</h3>
+<p><a href="https://leetcode.com/problems/linked-list-cycle-ii/">Given a linked list, return the node where the cycle begins. If there is no cycle, return null.There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.Notice that you should not modify the linked list.</a></p>
+<p>Brute force solution: Using set, add the each node to the set, if the element is present in set then return element. <a href="https://replit.com/@ZhangMYihua/cycle-detection-with-Set">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> detectCycle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">head</span>) </span>{
+    <span class="hljs-keyword">if</span>(!head) <span class="hljs-keyword">return</span> head;
+    <span class="hljs-keyword">let</span> cn = head, set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
+    <span class="hljs-keyword">while</span>(cn){
+        <span class="hljs-keyword">if</span>(set.has(cn)){
+            <span class="hljs-keyword">return</span> cn;
+        }
+        <span class="hljs-keyword">else</span>{
+            set.add(cn);
+        }
+        cn = cn.next;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+</div></code></pre>
+<p>Optimal solution: Using tortoise and hare(rabbit) alogirthm, the idea here is to increase the tortoise pointer by 1 and hare pointer by 2; if hair reaches the last value and it is null, then no cycle is detected.if hare and tortoise meets(equal), then cycle is detected. from there let p1 be the head and p2 be the last meeting point of hare and tortoise, if both p1===p2 return p1 or p2;<a href="https://replit.com/@ZhangMYihua/cycle-detection-Flyods-tortoise-and-hare#main.js">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> detectCycle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">head</span>) </span>{
+        <span class="hljs-keyword">if</span>(!head) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">let</span> tortoise = head, hare = head;
+        <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
+            tortoise = tortoise.next;
+            hare = hare.next;
+            <span class="hljs-keyword">if</span>(hare === <span class="hljs-literal">null</span> || hare.next === <span class="hljs-literal">null</span>){
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+            }
+            <span class="hljs-keyword">else</span>{
+                hare = hare.next;
+            }
+            <span class="hljs-keyword">if</span>(tortoise === hare) <span class="hljs-keyword">break</span>;
+        }
+        <span class="hljs-keyword">let</span> p1 = head, p2 = hare;
+        <span class="hljs-keyword">while</span>(p1 !== p2){
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        <span class="hljs-keyword">return</span> p1;
+};
+</div></code></pre>
+<hr>
+<h2 id="stacks">Stacks</h2>
+<h3 id="1-valid-parenthesis">1. Valid Parenthesis</h3>
+<p><a href="https://leetcode.com/problems/valid-parentheses/">Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.An input string is valid if:Open brackets must be closed by the same type of brackets.Open brackets must be closed in the correct order.</a></p>
+<p>Solution: Using stacks and hashmaps. Hashmap is used to mapping pairs and when we encounter open element we push that to the stack, and when we see close we pop the stack <code>map[stack.pop()] !== c</code> return false. else if the stack length is empty true. <a href="https://replit.com/@ZhangMYihua/valid-parentheses#main.js">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> isValid = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">s</span>) </span>{
+    <span class="hljs-keyword">var</span> map = {
+        <span class="hljs-string">&quot;(&quot;</span> : <span class="hljs-string">&quot;)&quot;</span>,
+        <span class="hljs-string">&quot;[&quot;</span> : <span class="hljs-string">&quot;]&quot;</span>,
+        <span class="hljs-string">&quot;{&quot;</span> : <span class="hljs-string">&quot;}&quot;</span>,
+    };
+
+    <span class="hljs-keyword">let</span> stack = [];
+    <span class="hljs-keyword">for</span>(c <span class="hljs-keyword">of</span> s){
+        <span class="hljs-keyword">if</span>(c === <span class="hljs-string">&quot;(&quot;</span> || c === <span class="hljs-string">&quot;{&quot;</span> || c === <span class="hljs-string">&quot;[&quot;</span>){
+            stack.push(c);
+        }
+        <span class="hljs-keyword">else</span>{
+            <span class="hljs-keyword">if</span>(map[stack.pop()] !== c){
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> stack.length === <span class="hljs-number">0</span>;
+};
+</div></code></pre>
+<h3 id="2-minimum-remove-to-make-valid-parenthesis">2. Minimum Remove to Make Valid Parenthesis</h3>
+<p><a href="https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/">Given a string s of '(' , ')' and lowercase English characters. Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.</a></p>
+<p>Solution:</p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> minRemoveToMakeValid = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">s</span>) </span>{
+    <span class="hljs-keyword">let</span> res = s.split(<span class="hljs-string">&quot;&quot;</span>),
+        stack = [];
+    
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i&lt;res.length; i++){
+        <span class="hljs-keyword">if</span>(res[i] === <span class="hljs-string">&quot;(&quot;</span>){
+            stack.push(i);
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(res[i] === <span class="hljs-string">&quot;)&quot;</span> &amp;&amp; stack.length){
+            stack.pop();
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(res[i] === <span class="hljs-string">&quot;)&quot;</span>){
+            res[i] = <span class="hljs-string">&quot;&quot;</span>;
+        }
+    }
+    
+    <span class="hljs-keyword">while</span>(stack.length){
+        <span class="hljs-keyword">const</span> ci = stack.pop();
+        res[ci] = <span class="hljs-string">&quot;&quot;</span>;
+    }
+    
+    <span class="hljs-keyword">return</span> res.join(<span class="hljs-string">&quot;&quot;</span>);
+};
+</div></code></pre>
+<hr>
+<h2 id="queues">Queues</h2>
+<h3 id="1-implement-queue-using-stacks">1. Implement Queue using Stacks</h3>
+<p><a href="https://leetcode.com/problems/implement-queue-using-stacks/">Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).</a></p>
+<p>Solution: <a href="https://replit.com/@ZhangMYihua/Create-Queue-using-stacks">Repl</a></p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> MyQueue = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">this</span>.stackIn = [];
+    <span class="hljs-built_in">this</span>.stackOut = [];
+};
+
+MyQueue.prototype.push = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+    <span class="hljs-built_in">this</span>.stackIn.push(x);
+};
+
+MyQueue.prototype.pop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.stackOut);
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.stackOut.length === <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">this</span>.stackIn.length){
+            <span class="hljs-built_in">this</span>.stackOut.push(<span class="hljs-built_in">this</span>.stackIn.pop());
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stackOut.pop();
+};
+
+MyQueue.prototype.peek = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.stackOut.length === <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">this</span>.stackIn.length){
+            <span class="hljs-built_in">this</span>.stackOut.push(<span class="hljs-built_in">this</span>.stackIn.pop());
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stackOut[<span class="hljs-built_in">this</span>.stackOut.length<span class="hljs-number">-1</span>];
+};
+
+MyQueue.prototype.empty = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.stackIn.length === <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-built_in">this</span>.stackOut.length === <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+    <span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+};
+</div></code></pre>
+<hr>
+<h2 id="recursionsorting-and-quickselect">Recursion(Sorting and Quickselect)</h2>
+<h3 id="1-factorial">1. Factorial</h3>
+<p><strong>Normal Recursion</strong></p>
+<p>Solution: Space complexity O(n), as call stack needs to remember previous value in every step. Here original function call is waiting for the subsequent recursive calls. so it has to store all the function calls in the stack.</p>
+<pre><code class="language-javascript"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factorial</span>(<span class="hljs-params">n</span>)</span>{
+    <span class="hljs-keyword">if</span>(n &lt;= <span class="hljs-number">1</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">return</span> n * factorial(n<span class="hljs-number">-1</span>);
+
+}
+
+factorial(<span class="hljs-number">5</span>);
+</div></code></pre>
+<p><strong>TailRecursion</strong></p>
+<p>Solution: Space complexity is O(1), we return the value of function call every time, we dont need to store the previous value. Here original function dont need to store anything, when original call is executed it passes the value by performing some calculations to the next recursive calls. so we dont store anything here.</p>
+<pre><code class="language-javascript"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factorial</span>(<span class="hljs-params">n, total=<span class="hljs-number">1</span></span>)</span>{
+    <span class="hljs-keyword">if</span>(n === <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">return</span> total;
+    }
+    <span class="hljs-keyword">return</span> factorial(n<span class="hljs-number">-1</span>, total * n);
+
+}
+
+factorial(<span class="hljs-number">5</span>);
+</div></code></pre>
+<h3 id="2-kth-largest-element-in-an-array">2. Kth Largest Element in an Array</h3>
+<p><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Given an integer array nums and an integer k, return the kth largest element in the array.Note that it is the kth largest element in the sorted order, not the kth distinct element.</a></p>
+<p>Solution 1: Using built in methods:</p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> findKthLargest = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nums, k</span>) </span>{
+    <span class="hljs-keyword">if</span>(nums.length === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> nums;
+    <span class="hljs-keyword">return</span> nums.sort(<span class="hljs-function">(<span class="hljs-params">a,b</span>) =&gt;</span> a-b)[nums.length-k];
+};
+</div></code></pre>
+<p>Solution 2:  Using quicksort <a href="https://replit.com/@ZhangMYihua/Find-kth-largest-element-Quicksort#main.js">Repl</a></p>
+<p>Solution 3: Using quickselect<a href="https://replit.com/@ZhangMYihua/Find-kth-largest-element-Quickselect#main.js">Repl</a></p>
+<h3 id="3--binary-search">3.  Binary Search</h3>
+<p><a href="https://leetcode.com/problems/binary-search/">Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.You must write an algorithm with O(log n) runtime complexity.</a></p>
+<p>Solution:</p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> search = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nums, target</span>) </span>{
+    <span class="hljs-keyword">let</span> left = <span class="hljs-number">0</span>, right = nums.length<span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">while</span>(left &lt;= right){
+        <span class="hljs-keyword">let</span> middle = <span class="hljs-built_in">Math</span>.floor((left+right)/<span class="hljs-number">2</span>);
+        <span class="hljs-keyword">const</span> foundVal = nums[middle];
+        <span class="hljs-keyword">if</span>(foundVal === target){
+           <span class="hljs-keyword">return</span> middle;
+        }
+        <span class="hljs-keyword">if</span>(foundVal &lt; target){
+            left = middle+<span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">else</span>{
+            right = middle<span class="hljs-number">-1</span>;
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+};
+</div></code></pre>
+<hr>
+
+    </body>
+    </html>
