@@ -1,8 +1,6 @@
 
 # DSA Problems
 
-
- 
   - [Arrays](#arrays)
     - [1. Two Sum](#1-two-sum)
     - [2. Container with most water](#2-container-with-most-water)
@@ -16,7 +14,7 @@
   - [Linked Lists](#linked-lists)
     - [1. Reverse a Linked List](#1-reverse-a-linked-list)
     - [2. M, N Reversals](#2-m-n-reversals)
-    - [3. Flatten a Multilevel Doubly Linked List](#3flatten-a-multilevel-doubly-linked-list)
+    - [3. Flatten a Multilevel Doubly Linked List](#3-flatten-a-multilevel-doubly-linked-list)
     - [4. Cycle detecting in Linked List](#4-cycle-detecting-in-linked-list)
   - [Stacks](#stacks)
     - [1. Valid Parenthesis](#1-valid-parenthesis)
@@ -27,6 +25,16 @@
     - [1. Factorial](#1-factorial)
     - [2. Kth Largest Element in an Array](#2-kth-largest-element-in-an-array)
     - [3.  Binary Search](#3--binary-search)
+    - [4.  Find First and Last Position of Element in Sorted Array](#4--find-first-and-last-position-of-element-in-sorted-array)
+  - [2D Arrays](#2d-arrays)
+    - [1. 2D Array(Matrix) traversal using DFS - Recursive Approach](#1-2d-arraymatrix-traversal-using-dfs---recursive-approach)
+    - [2. 2D Array(Matrix) traversal using BFS - Recursive Approach](#2-2d-arraymatrix-traversal-using-bfs---recursive-approach)
+    - [3. Number of Islands](#3-number-of-islands)
+    - [4. Rotten Oranges](#4-rotten-oranges)
+    - [5. Walls and gates](#5-walls-and-gates)
+    - [6. Search a 2D Matrix](#6-search-a-2d-matrix)
+    - [7. Set Matrix Zeroes](#7-set-matrix-zeroes)
+    - [8. Transpose Matrix](#8-transpose-matrix)
 ## Arrays  
 
 ### 1. Two Sum
@@ -793,5 +801,372 @@ var search = function(nums, target) {
     return -1;
 };
 ```
+
+### 4.  Find First and Last Position of Element in Sorted Array
+[Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.If target is not found in the array, return [-1, -1].You must write an algorithm with O(log n) runtime complexity.](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+Solution: [Repl](https://replit.com/@ZhangMYihua/Find-start-and-end-of-target-OlogN#main.js)
+
+```javascript
+var searchRange = function(N, T) {
+    const find = (target, arr, left=0, right=arr.length) => {
+        while (left <= right) {
+            let mid = left + right >> 1
+            if (arr[mid] < target) left = mid + 1
+            else right = mid - 1
+        }
+        return left
+    } 
+    let Tleft = find(T, N)
+    if (N[Tleft] !== T) return [-1,-1]
+    return [Tleft, find(T+1, N, Tleft) - 1]
+};
+```
+
+***
+
+## 2D Arrays
+
+### 1. 2D Array(Matrix) traversal using DFS - Recursive Approach
+
+```
+input:
+const testMatrix = [
+  [1,    2,     3,    4,    5],
+  [6,    7,     8,    9,   10],
+  [11,  12,  13,  14,  15],
+  [16,  17,  18,  19,  20]
+];
+output: 
+[
+  1,  2,  3,  4,  5, 10, 15,  20, 19, 14, 9,  8, 13, 18, 17, 12,  7, 6, 11, 16
+]
+```
+
+Solution: [Repl](https://replit.com/@kantesrikanth/2DArraysDFS#index.js)
+
+```javascript
+const input = [
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15],
+  [16, 17, 18, 19, 20]
+];
+
+const traversalDFS = (matrix) => {
+  let seen = Array(matrix.length).fill(0)
+              .map(() => Array(matrix[0].length).fill(false));
+  
+  let output = [];
+
+  helper(matrix, 0, 0, seen, output);
+
+  return output;
+}
+
+const helper = (matrix, row, col, seen, output) => {
+  if(row < 0 || col < 0 || row >= matrix.length || col >= matrix[0].length || seen[row][col]) return;
+  output.push(matrix[row][col]);
+  seen[row][col] = true;
+
+  helper(matrix, row-1, col, seen, output);
+  helper(matrix, row, col+1, seen, output);
+  helper(matrix, row+1, col, seen, output);
+  helper(matrix, row, col-1, seen, output);
+}
+
+
+
+traversalDFS(input);
+```
+
+### 2. 2D Array(Matrix) traversal using BFS - Recursive Approach
+
+```
+input:
+const testMatrix = [
+  [1,    2,     3,    4,    5],
+  [6,    7,     8,    9,   10],
+  [11,  12,  13,  14,  15],
+  [16,  17,  18,  19,  20]
+];
+output: 
+[
+   1,  2,  5,  3, 6,  9,  4,  7, 10, 13, 8, 11, 14, 12, 15, 16
+]
+```
+
+Solution: [Repl](https://replit.com/@kantesrikanth/2DArrayBFSTraversal)
+
+```javascript
+const input = [
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, 10, 11, 12],
+  [13, 14, 15, 16]
+];
+
+const traversalBFS = (matrix) => {
+  const seen = Array(matrix.length).fill(0)
+                .map(() => Array(matrix[0].length).fill(false));
+  const output = [];
+  const queue = [[0,0]];
+  while(queue.length){
+    const [row, col] = queue.shift();
+    if(row < 0 || col < 0 || row >= matrix.length || col >= matrix[0].length || seen[row][col]) continue;
+    output.push(matrix[row][col]);
+    seen[row][col] = true;
+
+    queue.push([row-1, col]);
+    queue.push([row, col+1]);
+    queue.push([row+1, col]);
+    queue.push([row, col-1]);
+  }
+  return output;
+}
+
+traversalBFS(input);
+```
+
+### 3. Number of Islands
+[Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.](https://leetcode.com/problems/number-of-islands/)
+
+Logic: Using nested for loops, and if `grid[row][col] === "1",` then increment do `countIslands++` and then we need to convert all the 1's that are connected into 0's. This is to ensure that we don't count duplicate islands. to do this we need to perform either BFS/DFS. and after for loop execution is done return the `countIslands`;
+
+Initially we are performing sequential traverse by using nested for loops, and then using BFS/DFS to traverse the adjacent top/down/left/right values.
+
+Approach using Sequential + DFS:
+
+Solution: 
+    - [Leetcode](https://leetcode.com/submissions/detail/503097503/)
+    - [Repl](https://replit.com/@ZhangMYihua/Number-of-Islands-DFS#main.js)
+
+
+```javascript
+const numIslands = (grid) => {
+    let count = 0;
+    for(let row=0; row<grid.length; row++){
+        for(let col=0; col<grid[0].length; col++){
+            if(grid[row][col] === "1"){
+                count++;
+                traverse(grid, row, col);
+            }
+        }
+    }
+    return count;
+};
+
+const traverse = (grid, row, col) => {
+    if(row < 0 || col < 0 || row >= grid.length || col >= grid[0].length) return;
+    if(grid[row][col] === "1"){
+        grid[row][col] = "0";    
+        traverse(grid, row-1, col);
+        traverse(grid, row, col+1);
+        traverse(grid, row+1, col);
+        traverse(grid, row, col-1);
+    }
+}
+```
+
+Approach using Sequential + BFS:
+
+Solution: [Repl](https://replit.com/@ZhangMYihua/Number-of-Islands-BFS#main.js)
+
+```javascript
+const input = [
+  [1, 1, 1, 0, 0],
+  [1, 1, 1, 0, 1],
+  [0, 1, 0, 0, 1],
+  [0, 0, 0, 1, 1]
+];
+
+const directions = [
+  [-1, 0], //up
+  [0, 1], //right
+  [1, 0], //down
+  [0, -1] //left
+]
+
+const numberOfIslands = function(matrix) {
+  if(matrix.length === 0) return 0;
+  let islandCount = 0;
+
+  for(let row = 0; row < matrix.length; row++) {
+    for(let col = 0; col < matrix[0].length; col++) {
+      if(matrix[row][col] === 1) {
+        islandCount++;
+        matrix[row][col] = 0;
+        const queue = [];
+        queue.push([row, col]);
+
+        while(queue.length) {
+          const currentPos = queue.shift();
+          const currentRow = currentPos[0];
+          const currentCol = currentPos[1];
+
+          for(let i = 0; i < directions.length; i++) {
+            const currentDir = directions[i];
+            const nextRow = currentRow + currentDir[0];
+            const nextCol = currentCol + currentDir[1];
+
+            if(nextRow < 0 || nextRow >= matrix.length || nextCol < 0 || nextCol >= matrix[0].length) continue;
+
+            if(matrix[nextRow][nextCol] === 1) {
+              queue.push([nextRow, nextCol]);
+              matrix[nextRow][nextCol] = 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return islandCount;
+}
+
+console.log(numberOfIslands(input));
+```
+
+### 4. Rotten Oranges
+[You are given an m x n grid where each cell can have one of three values:0 representing an empty cell,1 representing a fresh orange, or 2 representing a rotten orange.Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.](https://leetcode.com/problems/rotting-oranges/)
+
+Logic: First we need to push the rotten oranges [row, col]into new queue and store total no of fresh orange in a variable by using sequential traversal(nested for loops). then after that  we need to run BFS on the queue, then decrease the fresh orange count when we see it. and also we need to keep track of minutes variable, if single BFS is completed then minutes++. finally if the freshOrange > 0 then we need to return -1, else return minutes.
+
+Solution: [Repl](https://replit.com/@ZhangMYihua/Rotting-Oranges-Solution#main.js)
+
+```javascript
+const testMatrix = [
+  [2, 1, 1, 0, 0],
+  [1, 1, 1, 0, 0],
+  [0, 1, 1, 1, 1],
+  [0, 1, 0, 0, 1]
+];
+
+const directions = [
+  [-1, 0], //up
+  [0, 1], //right
+  [1, 0], //down
+  [0, -1] //left
+]
+
+const ROTTEN = 2;
+const FRESH = 1;
+const EMPTY = 0;
+
+
+const orangesRotting = function(matrix) {
+  if(matrix.length === 0) return 0;
+
+  const queue = [];  
+  let freshOranges = 0;
+  
+  for(let row = 0; row < matrix.length; row++) {
+    for(let col = 0; col < matrix[0].length; col++) {
+      if(matrix[row][col] === ROTTEN) {
+        queue.push([row, col])
+      }
+      
+      if(matrix[row][col] === FRESH) {
+        freshOranges++;
+      }
+    }
+  }
+    
+  let minutes = 0;
+  let currentQueueSize = queue.length;
+  
+  while(queue.length > 0) {
+    if(currentQueueSize === 0) {
+      currentQueueSize = queue.length;
+      minutes++;
+    }
+
+    const currentOrange = queue.shift();
+    currentQueueSize--;
+    const row = currentOrange[0];
+    const col = currentOrange[1];
+    
+    for(let i = 0; i < directions.length; i++) {
+      const currentDir = directions[i];
+      const nextRow = row + currentDir[0];
+      const nextCol = col + currentDir[1];
+      
+      if(nextRow < 0 || nextRow >= matrix.length || nextCol < 0 || nextCol >= matrix[0].length) {
+        continue;
+      }
+
+      if (matrix[nextRow][nextCol] === FRESH) {
+        matrix[nextRow][nextCol] = 2;
+        freshOranges--;
+        queue.push([nextRow, nextCol]);
+      }
+    }
+  }
+  
+  if(freshOranges !== 0) {
+    return -1;
+  }
+  
+  return minutes;
+};
+
+console.log(orangesRotting(testMatrix)
+```
+
+### 5. Walls and gates
+
+Q: Suppose we have one m x n 2D grid, and that is initialized with these three possible values.-1 for a wall or an obstacle.0 for a gate.INF This is infinity means an empty room.Here 2^31 - 1 = 2147483647 is INF as we may assume that the distance to a gate is less than 2147483647. Fill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, it should be filled with INF.
+[GFG](https://www.geeksforgeeks.org/find-shortest-distance-guard-bank/)
+[Leetcode](https://leetcode.com/problems/walls-and-gates/)
+
+Logic: The idea is to perform sequential search and perform BFS/DFS. In the sequential search if current element is equal to GATE(0), then we need to perfrom the BFS/DFS and replace the current[row][col] = count; if count > current[row][col] we skip. if not perform BFS/DFS.
+
+Solution: 
+- [Repl](https://replit.com/@kantesrikanth/2DArrayWallsgate#index.js)
+- [Repl](https://replit.com/@ZhangMYihua/Walls-and-Gates-Solution#main.js)
+
+```javascript
+const input = [
+  [Infinity, -1, 0, Infinity],
+  [Infinity, Infinity, Infinity, 0],
+  [Infinity, -1, Infinity, -1],
+  [0, -1, Infinity, Infinity]
+];
+
+const wallsAndGates = (arr) => {
+  for(let row=0; row<arr.length; row++){
+    for(let col=0; col<arr[0].length; col++){
+      if(arr[row][col] === 0){
+        dfs(arr, row, col, 0);
+      }
+    }
+  }
+  return arr;
+}
+
+const dfs = (arr, row, col, count) => {
+  if(row<0 ||  row>=arr.length  || col<0 || col>=arr[0].length || count > arr[row][col]) return;
+     arr[row][col] = count;
+     dfs(arr, row-1, col, count+1);
+     dfs(arr, row, col+1, count+1);
+     dfs(arr, row+1, col, count+1);
+     dfs(arr, row, col-1, count+1);
+}
+
+wallsAndGates(input);
+
+output: 
+[ [ 3, -1, 0, 1 ], [ 2, 2, 1, 0 ], [ 1, -1, 2, -1 ], [ 0,-1, 3, 4 ] ]
+
+```
+
+### 6. Search a 2D Matrix
+[Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:Integers in each row are sorted from left to right.The first integer of each row is greater than the last integer of the previous row.](https://leetcode.com/problems/search-a-2d-matrix/)
+
+### 7. Set Matrix Zeroes
+[Given an m x n matrix. If an element is 0, set its entire row and column to 0. Do it in-place.](https://leetcode.com/problems/set-matrix-zeroes/)
+
+### 8. Transpose Matrix
+[Given a 2D integer array matrix, return the transpose of matrix.The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.](https://leetcode.com/problems/transpose-matrix/)
 
 ***
