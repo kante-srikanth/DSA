@@ -1,5 +1,6 @@
 
 # DSA Problems
+
   - [Arrays](#arrays)
     - [1. Two Sum](#1-two-sum)
     - [2. Container with most water](#2-container-with-most-water)
@@ -41,6 +42,9 @@
     - [4. Binary Tree Left Side View](#4-binary-tree-left-side-view)
     - [5.  Count Complete Tree Nodes](#5--count-complete-tree-nodes)
     - [6. Validate Binary Search Tree](#6-validate-binary-search-tree)
+  - [Heaps and Priority Queues](#heaps-and-priority-queues)
+
+
 ## Arrays  
 
 ### 1. Two Sum
@@ -1384,5 +1388,36 @@ var isValidBST = function(root) {
 };
 
 ```
+
+## Heaps and Priority Queues
+
+**Heap**: 
+
+A Heap is a special Tree-based data structure in which the tree is a complete binary tree. Generally, Heaps can be of two types:
+
+Max-Heap: In a Max-Heap the key present at the root node must be greatest among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree.
+Min-Heap: In a Min-Heap the key present at the root node must be minimum among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree.
+
+
+<img src="https://www.geeksforgeeks.org/wp-content/uploads/MinHeapAndMaxHeap.png" width="40%" heigth="40%"/>
+
+
+Heaps are represented in the format of tree structure. Generally for tree problems we get the input as root node as object which has val, left and right props. But with heaps we get the input as Array, as in array we dont have the relationships between the elements, we need to figure out some way to find the relationships. Below are the formulas for finding the parent when child is given, and left element and right element so on...
+
+```javascript
+Input: [50, 40, 25, 20, 35, 10, 15]
+Formulas:
+Parent: Math.floor((currentElementIndex - 1)/2);
+Left: (currentElementIndex * 2) + 1
+Right: (currentElementIndex * 2) + 2
+```
+
+**Priority Queue**
+
+- Priority Queue is an extension of queue with following properties.
+- Every item has a priority associated with it.An element with high priority is dequeued before an element with low priority.
+- If two elements have the same priority, they are served according to their order in the queue.
+
+Implementation: [Repl](https://replit.com/@ZhangMYihua/priority-queue-class-implementation)
 
 ***

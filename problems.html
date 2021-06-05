@@ -432,6 +432,7 @@ code {
 <li><a href="#6-validate-binary-search-tree">6. Validate Binary Search Tree</a></li>
 </ul>
 </li>
+<li><a href="#heaps-and-priority-queues">Heaps and Priority Queues</a></li>
 </ul>
 <h2 id="arrays">Arrays</h2>
 <h3 id="1-two-sum">1. Two Sum</h3>
@@ -1584,6 +1585,26 @@ output:
 };
 
 </div></code></pre>
+<h2 id="heaps-and-priority-queues">Heaps and Priority Queues</h2>
+<p><strong>Heap</strong>:</p>
+<p>A Heap is a special Tree-based data structure in which the tree is a complete binary tree. Generally, Heaps can be of two types:</p>
+<p>Max-Heap: In a Max-Heap the key present at the root node must be greatest among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree.
+Min-Heap: In a Min-Heap the key present at the root node must be minimum among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree.</p>
+<img src="https://www.geeksforgeeks.org/wp-content/uploads/MinHeapAndMaxHeap.png" width="40%" heigth="40%"/>
+<p>Heaps are represented in the format of tree structure. Generally for tree problems we get the input as root node as object which has val, left and right props. But with heaps we get the input as Array, as in array we dont have the relationships between the elements, we need to figure out some way to find the relationships. Below are the formulas for finding the parent when child is given, and left element and right element so on...</p>
+<pre class="hljs"><code><div>Input: [<span class="hljs-number">50</span>, <span class="hljs-number">40</span>, <span class="hljs-number">25</span>, <span class="hljs-number">20</span>, <span class="hljs-number">35</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>]
+<span class="hljs-attr">Formulas</span>:
+Parent: <span class="hljs-built_in">Math</span>.floor((currentElementIndex - <span class="hljs-number">1</span>)/<span class="hljs-number">2</span>);
+Left: (currentElementIndex * <span class="hljs-number">2</span>) + <span class="hljs-number">1</span>
+<span class="hljs-attr">Right</span>: (currentElementIndex * <span class="hljs-number">2</span>) + <span class="hljs-number">2</span>
+</div></code></pre>
+<p><strong>Priority Queue</strong></p>
+<ul>
+<li>Priority Queue is an extension of queue with following properties.</li>
+<li>Every item has a priority associated with it.An element with high priority is dequeued before an element with low priority.</li>
+<li>If two elements have the same priority, they are served according to their order in the queue.</li>
+</ul>
+<p>Implementation: <a href="https://replit.com/@ZhangMYihua/priority-queue-class-implementation">Repl</a></p>
 <hr>
 
 </body>
