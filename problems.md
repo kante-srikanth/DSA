@@ -1,6 +1,5 @@
 
 # DSA Problems
-
   - [Arrays](#arrays)
     - [1. Two Sum](#1-two-sum)
     - [2. Container with most water](#2-container-with-most-water)
@@ -35,6 +34,13 @@
     - [6. Search a 2D Matrix](#6-search-a-2d-matrix)
     - [7. Set Matrix Zeroes](#7-set-matrix-zeroes)
     - [8. Transpose Matrix](#8-transpose-matrix)
+  - [Binary trees](#binary-trees)
+    - [1. Maximum Depth of Binary Tree](#1-maximum-depth-of-binary-tree)
+    - [2. Binary Tree Level Order Traversal](#2-binary-tree-level-order-traversal)
+    - [3. Binary Tree Right Side View](#3-binary-tree-right-side-view)
+    - [4. Binary Tree Left Side View](#4-binary-tree-left-side-view)
+    - [5.  Count Complete Tree Nodes](#5--count-complete-tree-nodes)
+    - [6. Validate Binary Search Tree](#6-validate-binary-search-tree)
 ## Arrays  
 
 ### 1. Two Sum
@@ -1168,5 +1174,215 @@ output:
 
 ### 8. Transpose Matrix
 [Given a 2D integer array matrix, return the transpose of matrix.The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.](https://leetcode.com/problems/transpose-matrix/)
+
+***
+
+## Binary trees
+
+### 1. Maximum Depth of Binary Tree
+[Given the root of a binary tree, return its maximum depth.A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
+Approach:  Using recursion, we traverse through all the elements until it is null, and return the max count of lefttraversal and righttraversal.
+
+Solution: 
+- [Repl](https://replit.com/@ZhangMYihua/Maximum-depth#main.js)
+- [Leetcode](https://leetcode.com/submissions/detail/499406238/)
+- [Leetcode](https://leetcode.com/submissions/detail/503281533/)
+
+```javascript
+var maxDepth = function(root) {
+    return traverse(root, 0);
+};
+const traverse = (node, count) => {
+    if(!node) return count;
+    count++;
+    return Math.max(traverse(node.left, count), traverse(node.right, count));
+}
+```
+**or**
+```javascript
+var maxDepth = function(root) {
+  function height(node){
+     if(!node) return 0;
+     var lh = height(node.left);
+     var rh = height(node.right);
+     return Math.max(lh, rh)+1; 
+  }
+  return height(root);
+};
+```
+
+### 2. Binary Tree Level Order Traversal
+[Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
+Solution: 
+- [Leetcode](https://leetcode.com/submissions/detail/503291226/)
+- [Repl](https://replit.com/@ZhangMYihua/Level-Order)
+
+```javascript
+const levelOrder = (root) => {
+    if(!root) return [];
+    const result = [], queue = [root];
+    while(queue.length){
+        let count  = 0, length = queue.length, currentLevelArrays = [];
+        while(count < length){
+            const currentNode = queue.shift();
+            currentLevelArrays.push(currentNode.val);
+            if(currentNode.left) queue.push(currentNode.left);
+            if(currentNode.right) queue.push(currentNode.right);
+            count++;
+        }
+        result.push(currentLevelArrays);        
+    }
+    return result;
+};
+```
+### 3. Binary Tree Right Side View
+[Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.](https://leetcode.com/problems/binary-tree-right-side-view/)
+
+
+Approach: Using BFS and we need to check for if the currentNode is right most element or not, if yes push it to the output array else do nothing. To check if the element in the level is right most or not, we need to keep track of node level using `Count` property as shown in the below.
+
+Solution:
+- [Leetcode](https://leetcode.com/submissions/detail/503306990/)
+- [Repl](https://replit.com/@ZhangMYihua/Binary-tree-right-side-view-BFS#main.js)
+
+
+```javascript
+const rightSideView = (root) => {
+    if(!root) return [];
+    let output= [], queue = [root];
+    while(queue.length){
+        let count=0, length = queue.length;
+        while(count < length){
+            const currentNode  = queue.shift();
+            if(currentNode.left) queue.push(currentNode.left);
+            if(currentNode.right) queue.push(currentNode.right);
+            count++;
+            if(count === length){
+                output.push(currentNode.val);
+            }
+        }
+    }
+    return output;
+};
+```
+
+
+Approach: Using DFS [Repl](https://replit.com/@ZhangMYihua/Binary-tree-right-side-view-DFS#main.js)
+
+```javascript
+const dfs = (node, currentLevel, result) => {
+  if(!node) return;
+  if(currentLevel >= result.length) {
+    result.push(node.value);
+  }
+
+  if(node.right) {
+    dfs(node.right, currentLevel + 1, result);
+  }
+  
+  if(node.left) {
+    dfs(node.left, currentLevel + 1, result);
+  }
+}
+
+const rightSideViewDFS = function(root) {
+  const result = [];
+  
+  dfs(root, 0, result);
+  return result;
+};
+
+console.log(rightSideViewDFS(tree))
+```
+
+### 4. Binary Tree Left Side View
+[Given a Binary Tree, print left view of it. Left view of a Binary Tree is set of nodes visible when tree is visited from left side.](https://www.geeksforgeeks.org/print-left-view-binary-tree/)
+
+Approach:  Using BFS and we need to check for if the currentNode is left most element or not, if yes push it to the output array else do nothing. To check if the element in the level is left most or not, we need to keep track of node level using `Count` property as shown in the below. if `count===1` that means it is the first element in the left view.
+
+Solution: [Repl](https://replit.com/@kantesrikanth/BinaryTreeLeftView#index.js)
+
+```javascript
+const leftSideView = (root) => {
+    if(!root) return [];
+    let output= [], queue = [root];
+    while(queue.length){
+        let count=0, length = queue.length;
+        while(count < length){
+            const currentNode  = queue.shift();
+            if(currentNode.left) queue.push(currentNode.left);
+            if(currentNode.right) queue.push(currentNode.right);
+            count++;
+            if(count === 1){
+                output.push(currentNode.val);
+            }
+        }
+    }
+    return output;
+};
+```
+
+### 5.  Count Complete Tree Nodes
+[Given the root of a complete binary tree, return the number of the nodes in the tree.According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.Design an algorithm that runs in less than O(n) time complexity.](https://leetcode.com/problems/count-complete-tree-nodes/)
+
+Brute Force: Traversing each node in the tree and keep track of count. [Leetcode](https://leetcode.com/submissions/detail/503333512/)
+```javascript
+var countNodes = (root) => {
+    if (!root) return 0;
+    if (root.left == null && root.right == null) return 1;
+    return countNodes(root.left) + countNodes(root.right) + 1;
+}
+```
+
+Optimal solution: Find the left most depth and right most depth, if equal return `Math.pow(s, leftLen)-1`; [Leetcode](https://leetcode.com/submissions/detail/503333762/)
+
+```javascript
+const countNodes = (root) => {
+    const leftDepth = (node) => {
+        if(!node) return 0;
+        return leftDepth(node.left)+1;
+    }
+    
+    const rightDepth = (node) => {
+        if(!node) return 0;
+        return rightDepth(node.right)+1;
+    }
+    
+    const traverse = (node) => {
+        const leftLen = leftDepth(node);
+        const rightLen = rightDepth(node);
+        if(leftLen === rightLen) return Math.pow(2, leftLen)-1;
+        return traverse(node.left) + traverse(node.right) + 1;
+    }
+    
+    return traverse(root);
+};
+```
+
+### 6. Validate Binary Search Tree
+[Given the root of a binary tree, determine if it is a valid binary search tree (BST).](https://leetcode.com/problems/validate-binary-search-tree/)
+
+Apporach: Check if each element is within the range of Min, Max if yes true, then again perfrom the same check for node.left and node.right element, if yes return true, else false;
+
+Solution:
+- [Leetcode](https://leetcode.com/submissions/detail/503340525/)
+- [Repl](https://replit.com/@ZhangMYihua/Validate-Binary-Search-Tree#main.js)
+
+```javascript
+var isValidBST = function(root) {
+    if(!root) return null;
+    const isBst = (node, min, max) => {
+        if(node === null) return true;
+        if(node.val > min && node.val < max && isBst(node.left, min, node.val) && isBst(node.right, node.val, max)){
+            return true
+        }
+        else return false;
+    }
+    return isBst(root, Math.max(), Math.min());
+};
+
+```
 
 ***

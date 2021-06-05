@@ -422,6 +422,16 @@ code {
 <li><a href="#8-transpose-matrix">8. Transpose Matrix</a></li>
 </ul>
 </li>
+<li><a href="#binary-trees">Binary trees</a>
+<ul>
+<li><a href="#1-maximum-depth-of-binary-tree">1. Maximum Depth of Binary Tree</a></li>
+<li><a href="#2-binary-tree-level-order-traversal">2. Binary Tree Level Order Traversal</a></li>
+<li><a href="#3-binary-tree-right-side-view">3. Binary Tree Right Side View</a></li>
+<li><a href="#4-binary-tree-left-side-view">4. Binary Tree Left Side View</a></li>
+<li><a href="#5--count-complete-tree-nodes">5.  Count Complete Tree Nodes</a></li>
+<li><a href="#6-validate-binary-search-tree">6. Validate Binary Search Tree</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="arrays">Arrays</h2>
 <h3 id="1-two-sum">1. Two Sum</h3>
@@ -1394,6 +1404,186 @@ output:
 <p><a href="https://leetcode.com/problems/set-matrix-zeroes/">Given an m x n matrix. If an element is 0, set its entire row and column to 0. Do it in-place.</a></p>
 <h3 id="8-transpose-matrix">8. Transpose Matrix</h3>
 <p><a href="https://leetcode.com/problems/transpose-matrix/">Given a 2D integer array matrix, return the transpose of matrix.The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.</a></p>
+<hr>
+<h2 id="binary-trees">Binary trees</h2>
+<h3 id="1-maximum-depth-of-binary-tree">1. Maximum Depth of Binary Tree</h3>
+<p><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Given the root of a binary tree, return its maximum depth.A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node</a></p>
+<p>Approach:  Using recursion, we traverse through all the elements until it is null, and return the max count of lefttraversal and righttraversal.</p>
+<p>Solution:</p>
+<ul>
+<li><a href="https://replit.com/@ZhangMYihua/Maximum-depth#main.js">Repl</a></li>
+<li><a href="https://leetcode.com/submissions/detail/499406238/">Leetcode</a></li>
+<li><a href="https://leetcode.com/submissions/detail/503281533/">Leetcode</a></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> maxDepth = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">root</span>) </span>{
+    <span class="hljs-keyword">return</span> traverse(root, <span class="hljs-number">0</span>);
+};
+<span class="hljs-keyword">const</span> traverse = <span class="hljs-function">(<span class="hljs-params">node, count</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span>(!node) <span class="hljs-keyword">return</span> count;
+    count++;
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.max(traverse(node.left, count), traverse(node.right, count));
+}
+</div></code></pre>
+<p><strong>or</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> maxDepth = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">root</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">height</span>(<span class="hljs-params">node</span>)</span>{
+     <span class="hljs-keyword">if</span>(!node) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+     <span class="hljs-keyword">var</span> lh = height(node.left);
+     <span class="hljs-keyword">var</span> rh = height(node.right);
+     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.max(lh, rh)+<span class="hljs-number">1</span>; 
+  }
+  <span class="hljs-keyword">return</span> height(root);
+};
+</div></code></pre>
+<h3 id="2-binary-tree-level-order-traversal">2. Binary Tree Level Order Traversal</h3>
+<p><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).</a></p>
+<p>Solution:</p>
+<ul>
+<li><a href="https://leetcode.com/submissions/detail/503291226/">Leetcode</a></li>
+<li><a href="https://replit.com/@ZhangMYihua/Level-Order">Repl</a></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> levelOrder = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span>(!root) <span class="hljs-keyword">return</span> [];
+    <span class="hljs-keyword">const</span> result = [], queue = [root];
+    <span class="hljs-keyword">while</span>(queue.length){
+        <span class="hljs-keyword">let</span> count  = <span class="hljs-number">0</span>, length = queue.length, currentLevelArrays = [];
+        <span class="hljs-keyword">while</span>(count &lt; length){
+            <span class="hljs-keyword">const</span> currentNode = queue.shift();
+            currentLevelArrays.push(currentNode.val);
+            <span class="hljs-keyword">if</span>(currentNode.left) queue.push(currentNode.left);
+            <span class="hljs-keyword">if</span>(currentNode.right) queue.push(currentNode.right);
+            count++;
+        }
+        result.push(currentLevelArrays);        
+    }
+    <span class="hljs-keyword">return</span> result;
+};
+</div></code></pre>
+<h3 id="3-binary-tree-right-side-view">3. Binary Tree Right Side View</h3>
+<p><a href="https://leetcode.com/problems/binary-tree-right-side-view/">Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.</a></p>
+<p>Approach: Using BFS and we need to check for if the currentNode is right most element or not, if yes push it to the output array else do nothing. To check if the element in the level is right most or not, we need to keep track of node level using <code>Count</code> property as shown in the below.</p>
+<p>Solution:</p>
+<ul>
+<li><a href="https://leetcode.com/submissions/detail/503306990/">Leetcode</a></li>
+<li><a href="https://replit.com/@ZhangMYihua/Binary-tree-right-side-view-BFS#main.js">Repl</a></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> rightSideView = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span>(!root) <span class="hljs-keyword">return</span> [];
+    <span class="hljs-keyword">let</span> output= [], queue = [root];
+    <span class="hljs-keyword">while</span>(queue.length){
+        <span class="hljs-keyword">let</span> count=<span class="hljs-number">0</span>, length = queue.length;
+        <span class="hljs-keyword">while</span>(count &lt; length){
+            <span class="hljs-keyword">const</span> currentNode  = queue.shift();
+            <span class="hljs-keyword">if</span>(currentNode.left) queue.push(currentNode.left);
+            <span class="hljs-keyword">if</span>(currentNode.right) queue.push(currentNode.right);
+            count++;
+            <span class="hljs-keyword">if</span>(count === length){
+                output.push(currentNode.val);
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> output;
+};
+</div></code></pre>
+<p>Approach: Using DFS <a href="https://replit.com/@ZhangMYihua/Binary-tree-right-side-view-DFS#main.js">Repl</a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> dfs = <span class="hljs-function">(<span class="hljs-params">node, currentLevel, result</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span>(!node) <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">if</span>(currentLevel &gt;= result.length) {
+    result.push(node.value);
+  }
+
+  <span class="hljs-keyword">if</span>(node.right) {
+    dfs(node.right, currentLevel + <span class="hljs-number">1</span>, result);
+  }
+  
+  <span class="hljs-keyword">if</span>(node.left) {
+    dfs(node.left, currentLevel + <span class="hljs-number">1</span>, result);
+  }
+}
+
+<span class="hljs-keyword">const</span> rightSideViewDFS = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">root</span>) </span>{
+  <span class="hljs-keyword">const</span> result = [];
+  
+  dfs(root, <span class="hljs-number">0</span>, result);
+  <span class="hljs-keyword">return</span> result;
+};
+
+<span class="hljs-built_in">console</span>.log(rightSideViewDFS(tree))
+</div></code></pre>
+<h3 id="4-binary-tree-left-side-view">4. Binary Tree Left Side View</h3>
+<p><a href="https://www.geeksforgeeks.org/print-left-view-binary-tree/">Given a Binary Tree, print left view of it. Left view of a Binary Tree is set of nodes visible when tree is visited from left side.</a></p>
+<p>Approach:  Using BFS and we need to check for if the currentNode is left most element or not, if yes push it to the output array else do nothing. To check if the element in the level is left most or not, we need to keep track of node level using <code>Count</code> property as shown in the below. if <code>count===1</code> that means it is the first element in the left view.</p>
+<p>Solution: <a href="https://replit.com/@kantesrikanth/BinaryTreeLeftView#index.js">Repl</a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> leftSideView = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span>(!root) <span class="hljs-keyword">return</span> [];
+    <span class="hljs-keyword">let</span> output= [], queue = [root];
+    <span class="hljs-keyword">while</span>(queue.length){
+        <span class="hljs-keyword">let</span> count=<span class="hljs-number">0</span>, length = queue.length;
+        <span class="hljs-keyword">while</span>(count &lt; length){
+            <span class="hljs-keyword">const</span> currentNode  = queue.shift();
+            <span class="hljs-keyword">if</span>(currentNode.left) queue.push(currentNode.left);
+            <span class="hljs-keyword">if</span>(currentNode.right) queue.push(currentNode.right);
+            count++;
+            <span class="hljs-keyword">if</span>(count === <span class="hljs-number">1</span>){
+                output.push(currentNode.val);
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> output;
+};
+</div></code></pre>
+<h3 id="5-count-complete-tree-nodes">5.  Count Complete Tree Nodes</h3>
+<p><a href="https://leetcode.com/problems/count-complete-tree-nodes/">Given the root of a complete binary tree, return the number of the nodes in the tree.According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.Design an algorithm that runs in less than O(n) time complexity.</a></p>
+<p>Brute Force: Traversing each node in the tree and keep track of count. <a href="https://leetcode.com/submissions/detail/503333512/">Leetcode</a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> countNodes = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span> (root.left == <span class="hljs-literal">null</span> &amp;&amp; root.right == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> countNodes(root.left) + countNodes(root.right) + <span class="hljs-number">1</span>;
+}
+</div></code></pre>
+<p>Optimal solution: Find the left most depth and right most depth, if equal return <code>Math.pow(s, leftLen)-1</code>; <a href="https://leetcode.com/submissions/detail/503333762/">Leetcode</a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> countNodes = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> leftDepth = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span>(!node) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> leftDepth(node.left)+<span class="hljs-number">1</span>;
+    }
+    
+    <span class="hljs-keyword">const</span> rightDepth = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span>(!node) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> rightDepth(node.right)+<span class="hljs-number">1</span>;
+    }
+    
+    <span class="hljs-keyword">const</span> traverse = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> leftLen = leftDepth(node);
+        <span class="hljs-keyword">const</span> rightLen = rightDepth(node);
+        <span class="hljs-keyword">if</span>(leftLen === rightLen) <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, leftLen)<span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">return</span> traverse(node.left) + traverse(node.right) + <span class="hljs-number">1</span>;
+    }
+    
+    <span class="hljs-keyword">return</span> traverse(root);
+};
+</div></code></pre>
+<h3 id="6-validate-binary-search-tree">6. Validate Binary Search Tree</h3>
+<p><a href="https://leetcode.com/problems/validate-binary-search-tree/">Given the root of a binary tree, determine if it is a valid binary search tree (BST).</a></p>
+<p>Apporach: Check if each element is within the range of Min, Max if yes true, then again perfrom the same check for node.left and node.right element, if yes return true, else false;</p>
+<p>Solution:</p>
+<ul>
+<li><a href="https://leetcode.com/submissions/detail/503340525/">Leetcode</a></li>
+<li><a href="https://replit.com/@ZhangMYihua/Validate-Binary-Search-Tree#main.js">Repl</a></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> isValidBST = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">root</span>) </span>{
+    <span class="hljs-keyword">if</span>(!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">const</span> isBst = <span class="hljs-function">(<span class="hljs-params">node, min, max</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span>(node === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">if</span>(node.val &gt; min &amp;&amp; node.val &lt; max &amp;&amp; isBst(node.left, min, node.val) &amp;&amp; isBst(node.right, node.val, max)){
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">return</span> isBst(root, <span class="hljs-built_in">Math</span>.max(), <span class="hljs-built_in">Math</span>.min());
+};
+
+</div></code></pre>
 <hr>
 
 </body>
