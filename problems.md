@@ -43,7 +43,15 @@
     - [5.  Count Complete Tree Nodes](#5--count-complete-tree-nodes)
     - [6. Validate Binary Search Tree](#6-validate-binary-search-tree)
   - [Heaps and Priority Queues](#heaps-and-priority-queues)
-
+  - [Graph](#graph)
+    - [Representation of Graph](#representation-of-graph)
+    - [Graph traversals](#graph-traversals)
+    - [1. Course Schedule](#1-course-schedule)
+  - [Dynamic Programming](#dynamic-programming)
+    - [1. Min Cost Climbing Stairs](#1-min-cost-climbing-stairs)
+    - [2. Knight Probability in Chessboard](#2-knight-probability-in-chessboard)
+  - [Practice Questions](#practice-questions)
+  - [References](#references)
 
 ## Arrays  
 
@@ -1421,3 +1429,456 @@ Right: (currentElementIndex * 2) + 2
 Implementation: [Repl](https://replit.com/@ZhangMYihua/priority-queue-class-implementation)
 
 ***
+
+## Graph
+
+<img src="https://cdncontribute.geeksforgeeks.org/wp-content/uploads/undirectedgraph.png" width="60%" heigth="60%" />
+
+### Representation of Graph
+
+- We can represent the graph in two ways
+- **Adjaceny List**
+
+    An array of lists is used. The size of the array is equal to the number of vertices. Let the array be an array[]. An entry array[i] represents the list of vertices adjacent to the ith vertex. This representation can also be used to represent a weighted graph. The weights of edges can be represented as lists of pairs. Following is the adjacency list representation of the above graph. 
+
+    <img src="https://cdncontribute.geeksforgeeks.org/wp-content/uploads/listadjacency.png" width="60%" height="60%" />
+
+- **Adjacency Matrix**
+
+    Adjacency Matrix: 
+    Adjacency Matrix is a 2D array of size V x V where V is the number of vertices in a graph. Let the 2D array be adj[][], a slot adj[i][j] = 1 indicates that there is an edge from vertex i to vertex j. Adjacency matrix for undirected graph is always symmetric. Adjacency Matrix is also used to represent weighted graphs. If adj[i][j] = w, then there is an edge from vertex i to vertex j with weight w. 
+
+    <img src="https://cdncontribute.geeksforgeeks.org/wp-content/uploads/adjacencymatrix.png" width="60%" height="60%" />
+
+### Graph traversals
+
+**BFS Using Adjacency List**
+- [Repl](https://replit.com/@ZhangMYihua/Adjacency-List-BFS#main.js)
+```javascript
+const adjacencyList = [
+  [1, 3],
+  [0],
+  [3, 8],
+  [0, 2, 4, 5],
+  [3, 6],
+  [3],
+  [4, 7],
+  [6],
+  [2]
+];
+
+const traversalBFS = function(graph) {
+  const seen = {};
+  const queue = [0];
+  const values = [];
+
+  while(queue.length) {
+    const vertex = queue.shift();
+    
+    values.push(vertex);
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+    for(let i = 0; i < connections.length; i++) {
+      const connection = connections[i];
+      if(!seen[connection]) {
+        queue.push(connection);
+      }
+    }
+  }
+
+  return values;
+}
+
+console.log(traversalBFS(adjacencyList));
+```
+
+**BFS Using Adjacency Matrix**
+- [Repl](https://replit.com/@ZhangMYihua/Adjacency-Matrix-BFS#main.js)
+```javascript
+  [0, 1, 0, 1, 0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 1, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0]
+];
+
+const traversalBFS = function(graph) {
+  const seen = {};
+  const queue = [0];
+  const values = [];
+
+  while(queue.length) {
+    const vertex = queue.shift();
+    
+    values.push(vertex);
+    seen[vertex] = true;
+
+    const connections = graph[vertex];
+    for(let v = 0; v < connections.length; v++) {
+      if(connections[v] > 0 && !seen[v]) {
+        queue.push(v);
+      }
+    }
+  }
+
+  return values;
+}
+
+console.log(traversalBFS(adjacencyMatrix));
+```
+
+**DFS Using Adjacency List**
+
+[Repl](https://replit.com/@ZhangMYihua/Adjacency-List-DFS#main.js)
+
+```javascript
+const adjacencyList = [
+  [1, 3],
+  [0],
+  [3, 8],
+  [0, 2, 4, 5],
+  [3, 6],
+  [3],
+  [4, 7],
+  [6],
+  [2]
+];
+
+const traversalDFS = function(vertex, graph, values, seen) {
+  values.push(vertex);
+  seen[vertex] = true;
+
+  const connections = graph[vertex];
+  for(let i = 0; i < connections.length; i++) {
+    const connection = connections[i];
+
+    if(!seen[connection]) {
+      traversalDFS(connection, graph, values, seen);
+    }
+  }
+}
+
+const values = [];
+traversalDFS(0, adjacencyList, values, {})
+
+console.log(values);
+```
+
+**DFS Using Adjacency Matrix**
+
+[Repl](https://replit.com/@ZhangMYihua/Adjacency-Matrix-DFS)
+
+```javascript
+const adjacencyMatrix = [
+  [0, 1, 0, 1, 0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 1, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0]
+];
+
+const traversalDFS = function(vertex, graph, values, seen) {
+  values.push(vertex);
+  seen[vertex] = true;
+
+  const connections = graph[vertex];
+  for(let v = 0; v < connections.length; v++) {
+    if(connections[v] > 0 && !seen[v]) {
+      traversalDFS(v, graph, values, seen);
+    }
+  }
+}
+
+const values = [];
+traversalDFS(0, adjacencyMatrix, values, {})
+
+console.log(values);
+```
+
+### 1. Course Schedule
+[There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.](https://leetcode.com/problems/course-schedule/)
+
+Approach: If question talks about some kind of relation, then that is related to graph. so from given input we need to either form the adjacency list or adjacency array for traversal. Then we need to perform BFS/DFS based on the situation.
+
+**Brute Force:** 
+- [Repl](https://replit.com/@ZhangMYihua/Course-schedule-naive-BFS#main.js)
+- [Leetcode](https://leetcode.com/submissions/detail/503436047/)
+
+ Using BFS traverse through each vertex, if `currentElement  === v` where v is vertex, then we can say that graph is cyclic.Hence we cannot complete courses and return false else return true.
+```javascript
+const canFinish = (n, p) => {
+    const adjList = Array(n).fill(0).map( () => []);
+    
+    for(let i=0; i<p.length; i++){
+        const pair = p[i];
+        adjList[pair[1]].push(pair[0]);
+    }
+    
+    for(let v=0; v<n; v++){
+        const queue = []; 
+        const seen = {};
+        for(let i=0; i<adjList[v].length; i++){
+            queue.push(adjList[v][i]);
+        }
+        
+        while(queue.length){
+            const current = queue.shift();
+            seen[current] = true;
+            if(current === v) return false;
+            const adjacent = adjList[current];
+            for(let i=0; i<adjacent.length; i++){
+                const next = adjacent[i];
+                if(!seen[next]){
+                    queue.push(next)
+                } 
+            }
+        }
+    }
+    return true;
+};
+
+```
+
+**Approach using Topological sorting:**
+
+ - [Leetcode](https://leetcode.com/submissions/detail/503456377/)
+ - [Repl -  Topological sorting using adjacency list](https://replit.com/@ZhangMYihua/Course-schedule-Topological-Sort-with-adjacency-list#main.js)
+ - [Repl - Topological sorting with out using adjacency list(optimal solution)](https://replit.com/@ZhangMYihua/Course-schedule-Topological-Sort-without-adjacency-list#main.js)
+
+Topological Sorting:
+
+  Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u v, vertex u comes before v in the ordering. Topological Sorting for a graph is not possible if the graph is not a DAG.
+
+  For example, a topological sorting of the following graph is “5 4 2 3 1 0”. There can be more than one topological sorting for a graph. For example, another topological sorting of the following graph is “4 5 2 3 1 0”. The first vertex in topological sorting is always a vertex with in-degree as 0 (a vertex with no incoming edges).
+
+<img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/graph.png" width="60%" heigth="60%"/>
+
+```javascript
+const canFinish = (n, p) => {
+    const indegree = Array(n).fill(0);
+    const adjList = indegree.map( () => []);
+
+    for(let i=0; i<p.length; i++){
+        const pair = p[i];
+        adjList[pair[1]].push(pair[0]);
+        indegree[pair[0]]++;
+
+    }
+
+    let stack = [];
+    
+    for(let i=0;i<indegree.length; i++){
+        if(indegree[i] === 0){
+            stack.push(i);
+        }
+    }
+    let count = 0;
+    while(stack.length){
+        const current = stack.pop();
+        count++;
+        let adjacent = adjList[current];
+        for(let i=0; i<adjacent.length; i++){
+            const next = adjacent[i];
+            indegree[next]--;
+            if(indegree[next] === 0){
+                stack.push(next);
+            }
+        }
+    }
+    
+    return count === n;
+};
+```
+***
+
+
+## Dynamic Programming
+
+### 1. Min Cost Climbing Stairs
+[You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.You can either start from thestep with index 0, or the step with index 1.Return the minimum cost to reach the top of the floor.](https://leetcode.com/problems/min-cost-climbing-stairs/)
+
+**Top down approach without dp:** May get time limit exceed error in leetcode due to too many call stacks
+-  [Repl](https://replit.com/@ZhangMYihua/Min-cost-climbing-stairs-Top-down-recursion)
+```javascript
+var minCostClimbingStairs = function(cost){
+    const n = cost.length;
+    return Math.min(minCost(n-1, cost), minCost(n-2, cost));
+}
+
+function minCost(i, cost){
+    if(i < 0) return 0;
+    if(i === 0 || i === 1) return cost[i];
+    return cost[i] + Math.min(minCost(i-1, cost), minCost(i-2, cost))
+}
+```
+
+**Top down apporach using dp i.e caching the result**: [Leetcode](https://leetcode.com/submissions/detail/503954212/)
+```javascript
+var minCostClimbingStairs = function(cost){
+    const n = cost.length;
+    const dp = [];
+    return Math.min(minCost(n-1, cost, dp), minCost(n-2, cost, dp));
+}
+
+function minCost(i, cost, dp){
+    if(i < 0) return 0;
+    if(i === 0 || i === 1) return cost[i];
+    if(dp[i] !== undefined){
+        return dp[i];
+    }
+    dp[i] = cost[i] + Math.min(minCost(i-1, cost, dp), minCost(i-2, cost, dp))
+    return dp[i];
+}
+```
+**Bottom up approach using recursive**
+- [Leetcode](https://leetcode.com/submissions/detail/503958486/)
+- [Repl](https://replit.com/@ZhangMYihua/Min-cost-climbing-stairs-Bottom-up-iterative)
+```javascript
+const minCostClimbingStairs = (cost) => {
+    const n = cost.length;
+    if(n === 0) return 0;
+    if(n === 1) return cost[n];
+    const dp = [];
+    dp[0] = cost[0];
+    dp[1] = cost[1];
+    for(i=0; i<n; i++){
+        if(i < 2){
+            dp[i] = cost[i]
+        }
+        else{
+            dp[i] = cost[i] + Math.min(dp[i-1], dp[i-2]);
+        }
+    }
+    return Math.min(dp[n-1], dp[n-2]);
+}
+
+```
+
+**Bottom up approach using Iterative solution - Optimised**
+- [Leetcode](https://leetcode.com/submissions/detail/503959156/)
+- [Repl](https://replit.com/@ZhangMYihua/Min-cost-climbing-stairs-Bottom-up-iterative-optimized#main.js)
+
+```javascript
+var minCostClimbingStairs = function(cost) {
+    const n = cost.length;
+    if(n === 0) return 0;
+    if(n === 1) return cost[0];
+    let dpOne = cost[0];
+    let dpTwo = cost[1];
+    for(let i=2; i<n; i++){
+        let current = cost[i] + Math.min(dpOne, dpTwo);
+        dpOne = dpTwo;
+        dpTwo = current;
+    }
+    return Math.min(dpOne, dpTwo);
+};
+```
+
+### 2. Knight Probability in Chessboard
+[Knight Probability in Chessboard](https://leetcode.com/problems/knight-probability-in-chessboard/)
+
+**Top down apporach using Recursive with DP**
+- [Leetcode](https://leetcode.com/submissions/detail/504014118/)
+- [Repl](https://replit.com/@ZhangMYihua/Knight-move-probability-Top-down-recursive-with-DP#main.js)
+
+```javascript
+const DIRECTIONS = [
+    [-2,-1],
+    [-2, 1],
+    [-1,2],
+    [1, 2],
+    [2, 1],
+    [2, -1],
+    [1,-2],
+    [-1, -2]
+]
+var knightProbability = function(n, k, row, column) {
+      const dp = new Array(k + 1).fill(0).map(() => new Array(n).fill(0).map(() => new Array(n).fill(undefined)));
+    
+    return recursive(n,k,row,column,dp);
+    
+};
+
+function recursive(n,k,row,column,dp){
+    if(row<0 || column<0 || row>=n || column>=n){
+        return 0;
+    } 
+    if(k === 0){
+        return 1;
+    }
+    
+    if(dp[k][row][column] !== undefined){
+        return dp[k][row][column];
+    }
+    
+    let res = 0;
+    
+    for (let dir of DIRECTIONS) {
+        res += recursive(n,k - 1, row + dir[0], column + dir[1],dp) / 8;
+    }
+    dp[k][row][column] = res;
+    return dp[k][row][column] ;
+}
+```
+
+**Top down approach using Recursive without using DP** [Repl](https://replit.com/@ZhangMYihua/Knight-in-chessboard-probability-Top-down-recursive) 
+```javascript
+const DIRECTIONS = [
+  [-2, -1],
+  [-2, 1],
+  [-1, 2],
+  [1, 2],
+  [2, 1],
+  [2, -1],
+  [1, -2],
+  [-1, -2]
+];
+
+var knightProbability = function(N, K, r, c) {
+  if (r < 0 || c < 0 || r >= N || c >= N) {
+    return 0;
+  }
+
+  if (K === 0) {
+    return 1;
+  }
+
+  let res = 0;
+
+  for (let dir of DIRECTIONS) {
+    res += knightProbability(N, K - 1, r + dir[0], c + dir[1]) / 8;
+  }
+
+  return res;
+};
+
+console.log(knightProbability(6, 2, 2, 2))
+```
+
+***
+
+## Practice Questions
+
+- [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+- [Best time to buy and sell stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+- [House robber](https://leetcode.com/problems/house-robber/)
+- [Longest common subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+- [Palindromic substrings](https://leetcode.com/problems/palindromic-substrings/)
+- [Longest palindromic subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/)
+- [Longest palindromic substring](https://leetcode.com/problems/longest-palindromic-substring/)
+- [Longest increasing subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+- [Coin Change](https://leetcode.com/problems/coin-change/)
+- [Minimum path sum](https://leetcode.com/problems/minimum-path-sum/)
+
+## References
+
+- [Leetcode DP discussion](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
