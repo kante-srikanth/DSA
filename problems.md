@@ -56,6 +56,9 @@
     - [1. Sudoko Solver](#1-sudoko-solver)
     - [2. Palindrome Partitioning](#2-palindrome-partitioning)
     - [3. N-Queens](#3-n-queens)
+  - [Interface design](#interface-design)
+    - [1. Monarchy Interface design](#1-monarchy-interface-design)
+    - [2. Implement Trie (Prefix Tree)](#2-implement-trie-prefix-tree)
 ## Arrays  
 
 ### 1. Two Sum
@@ -1910,5 +1913,157 @@ Solutiom:
 
 - [Repl](https://replit.com/@ZhangMYihua/N-Queens#main.js)
 
+***
+
+## Interface design 
+
+### 1. Monarchy Interface design
+
+[Design Interface for Monarchy](https://leetcode.com/discuss/interview-question/302164/google-phone-screen-monarchy)
+
+Solution:
+- [Repl](https://replit.com/@ZhangMYihua/Monarchy-Solution#index.js)
+
+
+```javascript
+class Person {
+  constructor(name) {
+    this.name = name;
+    this.isAlive = true;
+    this.children = [];
+  }
+}
+
+class Monarchy {
+  constructor(king) {
+    this.king = new Person(king);
+    this._persons = {
+      [this.king.name]: this.king
+    };
+  }
+
+  birth(childName, parentName) {
+    const parent = this._persons[parentName];
+    const newChild = new Person(childName);
+
+    parent.children.push(newChild);
+    this._persons[childName] = newChild;
+  }
+
+  death(name) {
+    const person = this._persons[name];
+
+    if (person === undefined) {
+      return null;
+    }
+
+    person.isAlive = false;
+  }
+
+  _dfs(currentPerson, order) {
+    if (currentPerson.isAlive) {
+      order.push(currentPerson.name);
+    }
+
+    for (let i = 0; i < currentPerson.children.length; i++) {
+        this._dfs(currentPerson.children[i], order);
+      }
+  
+  }
+
+  getOrderOfSuccession() {
+    const order = [];
+    this._dfs(this.king, order);
+    return order;
+  }
+}
+
+const mon = new Monarchy('Jake');
+mon.birth('Catherine', 'Jake');
+mon.birth('Tom', 'Jake');
+mon.birth('Celine', 'Jake');
+mon.birth('Peter', 'Celine');
+mon.birth('Jane', 'Catherine');
+mon.birth('Farah', 'Jane');
+mon.birth('Mark', 'Catherine');
+console.log(mon.getOrderOfSuccession());
+
+mon.death('Jake');
+mon.death('Jane');
+
+console.log(mon.getOrderOfSuccession());
+```
+
+### 2. Implement Trie (Prefix Tree)
+
+Trie is an efficient information reTrieval data structure. Using Trie, search complexities can be brought to optimal limit (key length). If we store keys in binary search tree, a well balanced BST will need time proportional to M * log N, where M is maximum string length and N is number of keys in tree. Using Trie, we can search the key in O(M) time. 
+
+<img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/Trie.png" width="60%" height="60%" />
+
+
+[A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.](https://leetcode.com/problems/implement-trie-prefix-tree/)
+
+Solution:
+- [Repl](https://replit.com/@ZhangMYihua/Implement-Prefix-Trie)
+
+```javascript
+class TrieNode {
+  constructor() {
+    this.end = false;
+    this.keys = {};
+  }
+}
+
+class Trie {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word, node = this.root) {
+    if(word.length === 0) {
+      node.end = true;
+      return;
+    } else if (!node.keys[word[0]]) {
+      node.keys[word[0]] = new TrieNode();
+      this.insert(word.substring(1), node.keys[word[0]]);
+    } else {
+      this.insert(word.substring(1), node.keys[word[0]]);
+    }
+  }
+
+  search(word, node = this.root) {
+    if(word.length === 0 && node.end) {
+      return true;
+    } else if(word.length === 0) {
+      return false;
+    } else if(!node.keys[word[0]]) {
+      return false;
+    } else {
+      return this.search(word.substring(1), node.keys[word[0]]);
+    }
+  }
+
+  startsWith(prefix, node = this.root) {
+    if(prefix.length === 0) {
+      return true;
+    } else if(!node.keys.hasOwnProperty(prefix[0])) {
+      return false
+    } else {
+      return this.startsWith(prefix.substring(1), node.keys[prefix[0]]);
+    }
+  }
+};
+
+const trie = new Trie();
+
+trie.insert("apple");
+console.log(trie.search("apple"));   // returns true
+console.log(trie.search("app"));     // returns false
+console.log(trie.startsWith("app")); // returns true
+trie.insert("dog")
+trie.insert("app");
+console.log(trie.search("app"));     // returns true
+
+```
 ***
 
