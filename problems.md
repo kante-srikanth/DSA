@@ -50,9 +50,12 @@
   - [Dynamic Programming](#dynamic-programming)
     - [1. Min Cost Climbing Stairs](#1-min-cost-climbing-stairs)
     - [2. Knight Probability in Chessboard](#2-knight-probability-in-chessboard)
-  - [Practice Questions](#practice-questions)
-  - [References](#references)
-
+    - [Dynamic Programming - Practice Questions](#dynamic-programming---practice-questions)
+    - [References](#references)
+  - [Backtracking](#backtracking)
+    - [1. Sudoko Solver](#1-sudoko-solver)
+    - [2. Palindrome Partitioning](#2-palindrome-partitioning)
+    - [3. N-Queens](#3-n-queens)
 ## Arrays  
 
 ### 1. Two Sum
@@ -1864,9 +1867,8 @@ var knightProbability = function(N, K, r, c) {
 console.log(knightProbability(6, 2, 2, 2))
 ```
 
-***
 
-## Practice Questions
+### Dynamic Programming - Practice Questions
 
 - [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 - [Best time to buy and sell stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
@@ -1879,6 +1881,34 @@ console.log(knightProbability(6, 2, 2, 2))
 - [Coin Change](https://leetcode.com/problems/coin-change/)
 - [Minimum path sum](https://leetcode.com/problems/minimum-path-sum/)
 
-## References
+### References
 
-- [Leetcode DP discussion](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+- [Leetcode Community discussion](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+
+
+***
+
+## Backtracking
+
+### 1. Sudoko Solver
+[Write a program to solve a Sudoku puzzle by filling the empty cells.](https://leetcode.com/problems/sudoku-solver/)
+
+ Solution:
+ - [Repl](https://replit.com/@ZhangMYihua/Sudoku-Solver)
+
+### 2. Palindrome Partitioning
+[Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.A palindrome string is a string that reads the same backward as forward.](https://leetcode.com/problems/palindrome-partitioning/)
+
+Solution:
+
+- [Repl](https://replit.com/@ZhangMYihua/Palindrome-Partitioning#index.js)
+
+### 3. N-Queens
+[The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.](https://leetcode.com/problems/n-queens/)
+
+Solutiom:
+
+- [Repl](https://replit.com/@ZhangMYihua/N-Queens#main.js)
+
+***
+
