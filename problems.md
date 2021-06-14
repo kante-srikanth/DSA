@@ -874,6 +874,49 @@ var searchRange = function(N, T) {
 };
 ```
 
+or
+
+```javascript
+var searchRange = function(nums, target) {
+    let index1 = findStartingIndex(nums, target);
+    let index2 = findEndingIndex(nums, target);
+    return [index1, index2];
+};
+
+const findStartingIndex = (nums, target) => {
+    let start = 0,
+        end = nums.length-1,
+        index = -1;
+    while(start <= end){
+        let middle = Math.floor((start+end)/2);
+        if(nums[middle] >= target){
+            end = middle-1;
+        }else{
+            start = middle+1;
+        }
+        if(nums[middle] === target) index = middle;
+    }
+    return index;
+}
+
+
+const findEndingIndex = (nums, target) => {
+    let start = 0,
+        end = nums.length-1,
+        index = -1;
+    while(start <= end){
+        let middle = Math.floor((start+end)/2);
+        if(nums[middle] <= target){
+            start = middle+1;
+        }else{
+            end = middle-1;
+        }
+        if(nums[middle] === target) index = middle;
+    }
+    return index;
+}
+```
+
 ***
 
 ## 2D Arrays
