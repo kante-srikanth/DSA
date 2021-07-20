@@ -389,6 +389,7 @@ code {
 <li><a href="#2-m-n-reversals">2. M, N Reversals</a></li>
 <li><a href="#3-flatten-a-multilevel-doubly-linked-list">3. Flatten a Multilevel Doubly Linked List</a></li>
 <li><a href="#4-cycle-detecting-in-linked-list">4. Cycle detecting in Linked List</a></li>
+<li><a href="#5-merge-sorted-linkedlists">5. Merge Sorted LinkedLists</a></li>
 </ul>
 </li>
 <li><a href="#stacks">Stacks</a>
@@ -915,6 +916,29 @@ validPalindrome(abca);
     <span class="hljs-keyword">return</span> head;
 };
 </div></code></pre>
+<p>or</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> flatten = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">head</span>) </span>{
+    <span class="hljs-keyword">let</span> cn = head;
+    <span class="hljs-keyword">while</span>(cn){
+        <span class="hljs-keyword">if</span>(cn.child !== <span class="hljs-literal">null</span>){
+            <span class="hljs-keyword">let</span> tail = cn.child;
+            <span class="hljs-keyword">while</span>(tail.next !== <span class="hljs-literal">null</span>){
+                tail = tail.next;
+            }
+            tail.next = cn.next;
+            <span class="hljs-keyword">if</span>(tail.next !== <span class="hljs-literal">null</span>){
+                tail.next.prev = tail;
+            }
+            cn.next = cn.child;
+            cn.next.prev = cn;
+            cn.child = <span class="hljs-literal">null</span>; 
+        }<span class="hljs-keyword">else</span>{
+            cn = cn.next;
+        }
+    }
+    <span class="hljs-keyword">return</span> head;
+};
+</div></code></pre>
 <h3 id="4-cycle-detecting-in-linked-list">4. Cycle detecting in Linked List</h3>
 <p><a href="https://leetcode.com/problems/linked-list-cycle-ii/">Given a linked list, return the node where the cycle begins. If there is no cycle, return null.There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.Notice that you should not modify the linked list.</a></p>
 <p>Brute force solution: Using set, add the each node to the set, if the element is present in set then return element. <a href="https://replit.com/@ZhangMYihua/cycle-detection-with-Set">Repl</a></p>
@@ -954,6 +978,29 @@ validPalindrome(abca);
             p2 = p2.next;
         }
         <span class="hljs-keyword">return</span> p1;
+};
+</div></code></pre>
+<h3 id="5-merge-sorted-linkedlists">5. Merge Sorted LinkedLists</h3>
+<p><a href="https://leetcode.com/problems/merge-two-sorted-lists/">Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.</a></p>
+<p>Approach: compare the head values and keep assigning it to the new list, and increment list;</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> mergeTwoLists = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">l1, l2</span>) </span>{
+    <span class="hljs-keyword">let</span> sortedList = { <span class="hljs-attr">val</span>: <span class="hljs-number">-1</span>, <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span>},
+        cn = sortedList;
+    
+    <span class="hljs-keyword">while</span>(l1 &amp;&amp; l2){
+        <span class="hljs-keyword">if</span>(l1.val &lt;= l2.val){ <span class="hljs-comment">// comparing the list head values</span>
+            cn.next = l1;
+            l1 = l1.next; <span class="hljs-comment">// incrementing the list l1</span>
+        }<span class="hljs-keyword">else</span>{
+            cn.next = l2;
+            l2 = l2.next; <span class="hljs-comment">// incrementing the list l2</span>
+        }
+        <span class="hljs-comment">// updating the current node</span>
+        cn = cn.next;
+    }
+    <span class="hljs-comment">// assigning the remaining list </span>
+    cn.next = l1 || l2;
+    <span class="hljs-keyword">return</span> sortedList.next;
 };
 </div></code></pre>
 <hr>
@@ -1125,6 +1172,46 @@ factorial(<span class="hljs-number">5</span>);
     <span class="hljs-keyword">return</span> [Tleft, find(T+<span class="hljs-number">1</span>, N, Tleft) - <span class="hljs-number">1</span>]
 };
 </div></code></pre>
+<p>or</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> searchRange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nums, target</span>) </span>{
+    <span class="hljs-keyword">let</span> index1 = findStartingIndex(nums, target);
+    <span class="hljs-keyword">let</span> index2 = findEndingIndex(nums, target);
+    <span class="hljs-keyword">return</span> [index1, index2];
+};
+
+<span class="hljs-keyword">const</span> findStartingIndex = <span class="hljs-function">(<span class="hljs-params">nums, target</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> start = <span class="hljs-number">0</span>,
+        end = nums.length<span class="hljs-number">-1</span>,
+        index = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">while</span>(start &lt;= end){
+        <span class="hljs-keyword">let</span> middle = <span class="hljs-built_in">Math</span>.floor((start+end)/<span class="hljs-number">2</span>);
+        <span class="hljs-keyword">if</span>(nums[middle] &gt;= target){
+            end = middle<span class="hljs-number">-1</span>;
+        }<span class="hljs-keyword">else</span>{
+            start = middle+<span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">if</span>(nums[middle] === target) index = middle;
+    }
+    <span class="hljs-keyword">return</span> index;
+}
+
+
+<span class="hljs-keyword">const</span> findEndingIndex = <span class="hljs-function">(<span class="hljs-params">nums, target</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> start = <span class="hljs-number">0</span>,
+        end = nums.length<span class="hljs-number">-1</span>,
+        index = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">while</span>(start &lt;= end){
+        <span class="hljs-keyword">let</span> middle = <span class="hljs-built_in">Math</span>.floor((start+end)/<span class="hljs-number">2</span>);
+        <span class="hljs-keyword">if</span>(nums[middle] &lt;= target){
+            start = middle+<span class="hljs-number">1</span>;
+        }<span class="hljs-keyword">else</span>{
+            end = middle<span class="hljs-number">-1</span>;
+        }
+        <span class="hljs-keyword">if</span>(nums[middle] === target) index = middle;
+    }
+    <span class="hljs-keyword">return</span> index;
+}
+</div></code></pre>
 <hr>
 <h2 id="2d-arrays">2D Arrays</h2>
 <h3 id="1-2d-arraymatrix-traversal-using-dfs---recursive-approach">1. 2D Array(Matrix) traversal using DFS - Recursive Approach</h3>
@@ -1177,10 +1264,10 @@ traversalDFS(input);
 <h3 id="2-2d-arraymatrix-traversal-using-bfs---recursive-approach">2. 2D Array(Matrix) traversal using BFS - Recursive Approach</h3>
 <pre class="hljs"><code><div>input:
 const testMatrix = [
-  [1,    2,     3,    4,    5],
-  [6,    7,     8,    9,   10],
-  [11,  12,  13,  14,  15],
-  [16,  17,  18,  19,  20]
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, 10, 11, 12],
+  [13, 14, 15, 16]
 ];
 output: 
 [

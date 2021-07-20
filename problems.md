@@ -16,6 +16,7 @@
     - [2. M, N Reversals](#2-m-n-reversals)
     - [3. Flatten a Multilevel Doubly Linked List](#3-flatten-a-multilevel-doubly-linked-list)
     - [4. Cycle detecting in Linked List](#4-cycle-detecting-in-linked-list)
+    - [5. Merge Sorted LinkedLists](#5-merge-sorted-linkedlists)
   - [Stacks](#stacks)
     - [1. Valid Parenthesis](#1-valid-parenthesis)
     - [2. Minimum Remove to Make Valid Parenthesis](#2-minimum-remove-to-make-valid-parenthesis)
@@ -669,6 +670,35 @@ var detectCycle = function(head) {
         return p1;
 };
 ```
+
+### 5. Merge Sorted LinkedLists
+
+[Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.](https://leetcode.com/problems/merge-two-sorted-lists/)
+
+Approach: compare the head values and keep assigning it to the new list, and increment list;
+
+```javascript
+var mergeTwoLists = function(l1, l2) {
+    let sortedList = { val: -1, next: null},
+        cn = sortedList;
+    
+    while(l1 && l2){
+        if(l1.val <= l2.val){ // comparing the list head values
+            cn.next = l1;
+            l1 = l1.next; // incrementing the list l1
+        }else{
+            cn.next = l2;
+            l2 = l2.next; // incrementing the list l2
+        }
+        // updating the current node
+        cn = cn.next;
+    }
+    // assigning the remaining list 
+    cn.next = l1 || l2;
+    return sortedList.next;
+};
+```
+
 ***
 
 ## Stacks
